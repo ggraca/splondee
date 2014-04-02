@@ -1,7 +1,7 @@
 function Pipe(x, y){
 	this.x = x;
 	this.y = y;
-
+	
 	
 	var c = Math.floor(Math.random()*3+1);
 
