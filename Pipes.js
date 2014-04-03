@@ -1,19 +1,16 @@
-function Pipe(x, y){
+function Pipe(x, y, width, height){
 	this.x = x;
-	this.y = y;
-	
-	
-	var c = Math.floor(Math.random()*3+1);
+    this.y = y;
+    this.width = width;
+    this.height = height;
 
-	if(c == 1)
-		this.color = "#FF0000";
-	else if(c == 2)
-		this.color = "#00FF00";
-	else if(c == 3)
-		this.color = "#0000FF";
+	this.colors = ["#FF0000", "#00FF00", "#0000FF"]
+	this.curColor = 0;
 
 	this.draw = function(){
-		canvas.fillStyle = this.color;
-		canvas.fillRect(x, y, 100, 100);
+		canvas.fillStyle = this.colors[this.curColor];
+		canvas.fillRect(this.x, this.y, this.width, this.height);
 	}
 }
+
+Pipe.prototype = new gameObject;
