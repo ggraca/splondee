@@ -1,5 +1,5 @@
 function Map(x, y, width, height){
-	gameObject.apply(this, [x, y, width, height]);
+	GameObject.apply(this, [x, y, width, height]);
 
 	this.MAX_Y = 5;
 	this.MAX_X = 10;

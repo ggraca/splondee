@@ -23,7 +23,3 @@ function GameObject(x, y, width, height){
         return false;
     }
 }
-
-function Sprite(){
-
-}
