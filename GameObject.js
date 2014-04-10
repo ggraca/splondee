@@ -1,11 +1,11 @@
-function gameObject(x, y, width, height) {
+function GameObject(x, y, width, height){
     this.x = x;
     this.y = y;
     this.width = width;
     this.height = height;
     
     // mouse parameter holds the mouse coordinates
-    this.handleClick = function(mouse) {
+    this.handleClick = function(mouse){
         
         // perform hit test between bounding box 
         // and mouse coordinates
@@ -22,4 +22,8 @@ function gameObject(x, y, width, height) {
         // hit test did not succeed
         return false;
     }
+}
+
+function Sprite(){
+
 }

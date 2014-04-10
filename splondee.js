@@ -4,7 +4,7 @@ var CANVAS_HEIGHT = 600;
 var c = document.getElementById("myCanvas");
 var canvas = c.getContext("2d");
 
-var map = new Map;
+var map = new Map(100, 100, 500, 250);
 map.genRandom();
 
 var FPS = 30;
