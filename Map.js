@@ -5,14 +5,17 @@ function Map(x, y, width, height){
 	this.MAX_X = 10;
 	
 	this.pos = [];
+	this.selectedPipe = null;
+
 	this.genRandom = function(){
 		this.pos = new Array(this.MAX_Y);
 		for(var i = 0; i < this.MAX_Y; i++){
 			this.pos[i] = new Array(this.MAX_X);
 			for(var j = 0; j < this.MAX_X; j++){
-				this.pos[i][j] = new Pipe(x + j*50, y + i*50, 50, 50);
+				this.pos[i][j] = new StraightVertical(x + j*50, y + i*50, 50, 50);
 			}
 		}
+		this.pos[0][0] = new StraightHorizontal(x + 0, y + 0, 50, 50);
 	}
 
 	this.draw = function(){
@@ -24,13 +27,18 @@ function Map(x, y, width, height){
 	}
 
 	this.input = function(mouse){
-		if(!handleClick(mouse))
-			return;
-
-		//Corrigir para formula matematica
-		for(var i = 0; i < MAX_Y; i++){
-			for(var j = 0; j < MAX_X; j++){
-				pos[i][j].handleClick();
+		for(var i = 0; i < this.MAX_Y; i++){
+			for(var j = 0; j < this.MAX_X; j++){
+				if(this.pos[i][j].handleClick(mouse)){
+					if(this.selectedPipe == null)
+						this.selectedPipe = this.pos[i][j];
+					else{
+						if(this.selectedPipe != this.pos[i][j])
+							this.pos[i][j].swap(this.selectedPipe);
+						this.selectedPipe = null;
+					}
+					return;
+				}
 			}
 		}
 	}

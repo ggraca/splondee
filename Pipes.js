@@ -1,15 +1,37 @@
 function Pipe(x, y, width, height){
 	GameObject.apply(this, [x, y, width, height]);
-
-	this.type = ["", "2", "3", "4", "5", "6", "7"];
-	this.rand = Math.floor((Math.random()*7));
 	this.sprite = new Image();
-	this.sprite.src = "res/img/PALHINHAS" + this.type[this.rand] + ".png";
+	this.sprite.src = "res/img/PALHINHAS6.png";	
+
+	this.left = null;
+	this.right = null;
+	this.up = null;
+	this.down = null;
 
 	this.draw = function(){
-		//canvas.fillStyle = this.colors[this.curColor];
-		//canvas.fillRect(this.x, this.y, this.width, this.height);
 		canvas.drawImage(this.sprite, this.x, this.y, this.width, this.height);
+	}
+
+	this.copy = function(p){
+		this.x = p.x;
+		this.y = p.y;
+		this.width = p.width;
+		this.height = p.height;
+	}
+
+	this.swap = function(p){
+		var temp = new Pipe(0, 0, 0, 0);
+		temp.copy(p);
+		p.copy(this);
+		this.copy(temp);
 	}
 }
 
+function StraightVertical(x, y, width, height){
+	Pipe.apply(this, [x, y, width, height]);
+	this.sprite.src = "res/img/PALHINHAS6.png";	
+}
+function StraightHorizontal(x, y, width, height){
+	Pipe.apply(this, [x, y, width, height]);
+	this.sprite.src = "res/img/PALHINHAS5.png";	
+}
