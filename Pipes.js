@@ -27,11 +27,11 @@ function Pipe(x, y, width, height){
 	}
 }
 
-function StraightVertical(x, y, width, height){
+function PipeVertical(x, y, width, height){
 	Pipe.apply(this, [x, y, width, height]);
 	this.sprite.src = "res/img/PALHINHAS6.png";	
 }
-function StraightHorizontal(x, y, width, height){
+function PipeHorizontal(x, y, width, height){
 	Pipe.apply(this, [x, y, width, height]);
-	this.sprite.src = "res/img/PALHINHAS5.png";	
+	this.sprite.src = "res/img/PALHINHAS7.png";	
 }

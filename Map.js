@@ -12,10 +12,10 @@ function Map(x, y, width, height){
 		for(var i = 0; i < this.MAX_Y; i++){
 			this.pos[i] = new Array(this.MAX_X);
 			for(var j = 0; j < this.MAX_X; j++){
-				this.pos[i][j] = new StraightVertical(x + j*50, y + i*50, 50, 50);
+				this.pos[i][j] = new PipeVertical(x + j*50, y + i*50, 50, 50);
 			}
 		}
-		this.pos[0][0] = new StraightHorizontal(x + 0, y + 0, 50, 50);
+		this.pos[0][0] = new PipeHorizontal(x + 0, y + 0, 50, 50);
 	}
 
 	this.draw = function(){
