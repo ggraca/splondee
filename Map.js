@@ -51,18 +51,28 @@ function Map(x, y, width, height){
 		if(p.marked)
 			return;
 
-		p.mark();
-		var l = p.dest();
+		var use = false
+		var dest = [];
 
-		for(var a = 0; a < l.length; a++){
-			var x = l[a][0] + p.j;
-			var y = l[a][1] + p.i;
-
+		var coords = p.dest();
+		for(a of coords){
+			var x = a[0] + p.j;
+			var y = a[1] + p.i;
 
 			if(x < 0 || x >= this.MAX_X || y < 0 || y >= this.MAX_Y)
 				continue;
 
-			this.flow(this.pos[y][x], p);
+			if(this.pos[y][x] == old)
+				use = true;
+			else
+				dest.push(this.pos[y][x]);
 		}
+
+		if(use || old == null){
+			p.mark();
+			for(a of dest)
+				this.flow(a, p);
+		}
+
 	}
 }
