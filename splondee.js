@@ -5,7 +5,7 @@ var c = document.getElementById("myCanvas");
 var canvas = c.getContext("2d");
 
 var map = new Map(100, 100, 500, 250);
-map.genRandom();
+map.genLevel();
 
 var FPS = 30;
 setInterval(function(){

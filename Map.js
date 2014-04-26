@@ -19,6 +19,22 @@ function Map(x, y, width, height){
 		this.pos[3][3] = new PipeCurve(x + 3*50, y + 3*50, 50, 50, 3, 3);
 	}
 
+	this.genLevel = function(){
+		this.pos = new Array(this.MAX_Y);
+		for(var i = 0; i < this.MAX_Y; i++){
+			this.pos[i] = new Array(this.MAX_X);
+			for(var j = 0; j < this.MAX_X; j++){
+				var n = level1[i][j];
+				if(n == 0)
+					this.pos[i][j] = new PipeVertical(x + j*50, y + i*50, 50, 50, i, j);
+				else if(n == 1)
+					this.pos[i][j] = new PipeCurve(x + j*50, y + i*50, 50, 50, i, j);
+				else if(n == 2)
+					this.pos[i][j] = new PipeHorizontal(x + j*50, y + i*50, 50, 50, i, j);				
+			}
+		}
+	}
+
 	this.draw = function(){
 		for(var i = 0; i < this.MAX_Y; i++){
 			for(var j = 0; j < this.MAX_X; j++){
