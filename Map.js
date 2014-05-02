@@ -12,11 +12,10 @@ function Map(x, y, width, height){
 		for(var i = 0; i < this.MAX_Y; i++){
 			this.pos[i] = new Array(this.MAX_X);
 			for(var j = 0; j < this.MAX_X; j++){
-				this.pos[i][j] = new PipeVertical(x + j*50, y + i*50, 50, 50, i, j);
+				this.pos[i][j] = new RectPipe(x + j*50, y + i*50, i, j);
 			}
 		}
-		this.pos[0][0] = new PipeHorizontal(x + 0, y + 0, 50, 50, 0, 0);
-		this.pos[3][3] = new PipeCurve(x + 3*50, y + 3*50, 50, 50, 3, 3);
+		this.pos[3][3] = new CurvePipe(x + 3*50, y + 3*50, 3, 3);
 	}
 
 	this.genLevel = function(){
@@ -26,11 +25,11 @@ function Map(x, y, width, height){
 			for(var j = 0; j < this.MAX_X; j++){
 				var n = level1[i][j];
 				if(n == 0)
-					this.pos[i][j] = new PipeVertical(x + j*50, y + i*50, 50, 50, i, j);
+					this.pos[i][j] = new RectPipe(x + j*50, y + i*50, i, j);
 				else if(n == 1)
-					this.pos[i][j] = new PipeCurve(x + j*50, y + i*50, 50, 50, i, j);
+					this.pos[i][j] = new CurvePipe(x + j*50, y + i*50, i, j);
 				else if(n == 2)
-					this.pos[i][j] = new PipeHorizontal(x + j*50, y + i*50, 50, 50, i, j);				
+					this.pos[i][j] = new RectPipe(x + j*50, y + i*50, i, j);				
 			}
 		}
 	}
@@ -48,15 +47,15 @@ function Map(x, y, width, height){
 			for(var j = 0; j < this.MAX_X; j++){
 				if(this.pos[i][j].handleClick(mouse)){
 
-					this.flow(this.pos[i][j], null);
+					//this.flow(this.pos[i][j], null);
 
-					// if(this.selectedPipe == null)
-					// 	this.selectedPipe = this.pos[i][j];
-					// else{
-					// 	if(this.selectedPipe != this.pos[i][j])
-					// 		this.pos[i][j].swap(this.selectedPipe);
-					// 	this.selectedPipe = null;
-					// }
+					if(this.selectedPipe == null)
+						this.selectedPipe = this.pos[i][j];
+					else{
+						if(this.selectedPipe != this.pos[i][j])
+							this.pos[i][j].swap(this.selectedPipe);
+						this.selectedPipe = null;
+					}
 					return;
 				}
 			}

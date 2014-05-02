@@ -1,5 +1,5 @@
-function Pipe(x, y, width, height, i, j){
-	GameObject.apply(this, [x, y, width, height]);
+function Pipe(x, y, i, j){
+	GameObject.apply(this, [x, y, 50, 50]);
 
 	this.i = i;
 	this.j = j;
@@ -36,33 +36,24 @@ function Pipe(x, y, width, height, i, j){
 	}
 
 	this.mark = function(){
-		this.sprite.src = "res/img/PALHINHAS4.png";
+		this.sprite.src = "res/img/Cross.png";
 		this.marked = true;
 	}
 
 }
 
-function PipeVertical(x, y, width, height, i, j){
-	Pipe.apply(this, [x, y, width, height, i, j]);
-	this.sprite.src = "res/img/PALHINHAS6.png";
+function RectPipe(x, y, i, j){
+	Pipe.apply(this, [x, y, i, j]);
+	this.sprite.src = "res/img/Rect.png";
 
 	this.dest = function(){
 		return [[0, -1], [0, 1]];
 	}
 }
 
-function PipeHorizontal(x, y, width, height, i, j){
-	Pipe.apply(this, [x, y, width, height, i, j]);
-	this.sprite.src = "res/img/PALHINHAS7.png";	
-
-	this.dest = function(){
-		return [[-1, 0], [1, 0]];
-	}
-}
-
-function PipeCurve(x, y, width, height, i, j){
-	Pipe.apply(this, [x, y, width, height, i, j]);
-	this.sprite.src = "res/img/PALHINHAS.png";
+function CurvePipe(x, y, i, j){
+	Pipe.apply(this, [x, y, i, j]);
+	this.sprite.src = "res/img/Curve.png";
 
 	this.dest = function(){
 		return [[0, -1], [-1, 0]];
