@@ -1,36 +1,32 @@
-var stage = new createjs.Stage("myCanvas");
+var stage, map;
+init();
 
-var circle = new createjs.Shape();
-circle.graphics.beginFill("red").drawCircle(0, 0, 50);
-circle.x = 100;
-circle.y = 100;
-stage.addChild(circle);
+function init(){
+	stage = new createjs.Stage("myCanvas");
+	createjs.Ticker.addEventListener("tick", update);
+	stage.enableMouseOver();
 
-createjs.Ticker.addEventListener("tick", tick);
-function tick() { console.log("TICK!!!"); }
+	loadLevel();
+}
 
+function update(){
+	map.update();
+	stage.update();
+}
 
-stage.update();
+function loadLevel(){
+	map = new Map();
+	map.generate();
 
-// var CANVAS_WIDTH = 800;
-// var CANVAS_HEIGHT = 600;
+	stage.addChild(map.matrixStage);
+	map.matrixStage.x = 125;
+	map.matrixStage.y = 150;
 
-// var c = document.getElementById("myCanvas");
-// var canvas = c.getContext("2d");
+	stage.addChild(map.drinkStage);
+	map.drinkStage.x = 150;
+	map.drinkStage.y = 25;
 
-// var map = new Map(100, 100, 500, 250);
-// map.genLevel();
-
-// var FPS = 30;
-// setInterval(function(){
-//   update();
-//   draw();
-// }, 1000/FPS);
-
-// function update(){
-// }
-
-// function draw(){
-// 	canvas.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
-// 	map.draw();
-// }
+	stage.addChild(map.cocktailStage);
+	map.cocktailStage.x = 125;
+	map.cocktailStage.y = 400;
+}

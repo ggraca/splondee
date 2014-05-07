@@ -1,14 +1,12 @@
 <!DOCTYPE>
 <html>
 	<head>
-		<title>Space Shooter Demo</title>
+		<title>Splondee</title>
 		<style>
 			canvas {
 				display: block;
 				margin: 0px auto 0 auto;
 				background-color: black;
-				width: 800px;
-				height: 600px;
 			    user-select: none;
 			    -ms-user-select: none;
 			    -webkit-user-select: none;
@@ -18,13 +16,21 @@
 			    -webkit-user-drag: none;
 			}
 		</style>
+
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 		<script src="res/engine/easeljs.js"></script>
+
 	</head>
 	<body>
-		<canvas id="myCanvas">
-			
+
+		<canvas id="myCanvas" width="800" height="600">
 		</canvas>
+
+		<script src="funcs.js"></script>
+		<script src="pipes.js"></script>
+		<script src="drinks.js"></script>
+		<script src="receiver.js"></script>
+		<script src="map.js"></script>
 		<script src="main.js"></script>
 
 	</body>
