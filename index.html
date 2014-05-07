@@ -3,29 +3,24 @@
 	<head>
 		<title>Space Shooter Demo</title>
 		<style>
+			*, html{
+				margin: 0;
+				padding: 0;
+			}
 			canvas {
 				display: block;
 				margin: 0px auto 0 auto;
 				background-color: black;
-				width: 800px;
-				height: 600px;
-			    user-select: none;
-			    -ms-user-select: none;
-			    -webkit-user-select: none;
-			    -khtml-user-select: none;
-			    -moz-user-select: none;
-			    -webkit-touch-callout: none;
-			    -webkit-user-drag: none;
 			}
 		</style>
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 		<script src="res/engine/easeljs.js"></script>
 	</head>
 	<body>
-		<canvas id="myCanvas">
-			
+		<canvas id="myCanvas" height="600" width="800">
+			Your browser does not support this feature.	
 		</canvas>
+		<script src="UI.js"></script>
 		<script src="main.js"></script>
-
 	</body>
 </html>
