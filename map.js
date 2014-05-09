@@ -21,14 +21,14 @@ function Map(){
 			var line = [];
 			for(var j = 0; j < 11; j++){
 				
-				var rand = Math.floor((Math.random() * 2));
+				var rand = Math.floor((Math.random() * 4));
 				var rot = Math.floor((Math.random() * 4));
 				var s;
 
 				if(rand == 0) s = "rect";
 				else if(rand == 1) s = "curve";
-				//else if(rand == 2) s = "segundo";
-				//else if(rand == 1) s = "Cross";
+				else if(rand == 2) s = "segundo";
+				else if(rand == 3) s = "mixer";
 
 				var pipe = new Pipe({x: j, y: i}, s, rot);
 

@@ -1,63 +1,127 @@
 var pipes = {
 	rect: {
-		src: "Rect",
+		src: function(rot){
+			switch(rot){
+				case 1:
+				case 3:
+					return "rect1";
+
+				default:
+					return "rect0";
+			}
+		},
 		paths: function(rot){
 			switch(rot){
 				case 1:
 				case 3:
 					return {
-						left: [],
-					 	right: [],
-					 	top: ["down"],
-					 	down: ["top"]
+						left: null,
+					 	right: null,
+					 	top: "down",
+					 	down: "top"
 					};
 
 				default:
 					return {
-						left: ["right"],
-					 	right: ["left"],
-					 	top: [],
-					 	down: []
+						left: "right",
+					 	right: "left",
+					 	top: null,
+					 	down: null
 					};
 			}
 		}
 	},
 	curve: {
-		src: "Curve",
+		src: function(rot){
+			return "curve" + rot;
+		},
 		paths: function(rot){
 			switch(rot){
 				case 1:
 					return {
-						left: [],
-					 	right: ["top"],
-					 	top: ["right"],
-					 	down: []
+						left: null,
+					 	right: "top",
+					 	top: "right",
+					 	down: null
 					};
 
 				case 2:
 					return {
-						left: [],
-					 	right: ["down"],
-					 	top: [],
-					 	down: ["right"]
+						left: null,
+					 	right: "down",
+					 	top: null,
+					 	down: "right"
 					};
 
 				case 3:
 					return {
-						left: ["down"],
-					 	right: [],
-					 	top: [],
-					 	down: ["left"]
+						left: "down",
+					 	right: null,
+					 	top: null,
+					 	down: "left"
 					};
 
 				default:
 					return {
-						left: ["top"],
-					 	right: [],
-					 	top: ["left"],
-					 	down: []
+						left: "top",
+					 	right: null,
+					 	top: "left",
+					 	down: null
 					};
 			}
+		}
+	},
+	segundo: {
+		src: function(rot){
+			if(rot == 0 || rot == 2)
+				return "segundo" + 0;
+			return "segundo" + 1;
+		},
+		paths: function(rot){
+			switch(rot){
+				case 1:
+				case 3:
+					return {
+						left: "down",
+					 	right: "top",
+					 	top: "right",
+					 	down: "left"
+					};
+
+				default:
+					return {
+						left: "top",
+					 	right: "down",
+					 	top: "left",
+					 	down: "right"
+					};
+			}
+		}
+	},
+	bridge: {
+		src: function(rot){
+			return "bridge";
+		},
+		paths: function(rot){
+			return {
+				left: "right",
+			 	right: "left",
+			 	top: "down",
+			 	down: "top"
+			};
+		}
+	},
+	mixer: {
+		src: function(rot){
+			return "home";
+		},
+		paths: function(rot){
+			return {
+				left: "mixer",
+			 	right: "mixer",
+			 	top: null,
+			 	down: null
+			};
 		}
 	}
 }
@@ -66,26 +130,35 @@ function Pipe(pos, t, rot){
 	this.group = t;
 	this.rot = rot;
 	this.pos = pos;
-	this.sprite = getSprite(t + rot);
+
+	//alterar isto
+	this.sprite = getSprite(pipes[this.group].src(rot));
 
 	this.targets = [];
-
-	this.loading = 0;
 	this.reached = false;
+	this.mixer = 0;
 
 	this.update = function(){
 		if(this.reached){
-			this.loading++;
-			if(this.loading == 20){
+			for(var i = 0; i < this.targets.length; i++){
 				
-				this.sprite.gotoAndPlay("jump");
+				this.targets[i].state++;
+				if(this.targets[i].state == 20){
+					if(this.targets[i].dir == "mixer"){
+						this.mixer++;
+						if(this.mixer == 2){
+							this.targets.push({
+								dir: "down",
+								state: 0
+							});
+						}
+					}
+					else{
+						this.sprite.gotoAndPlay("jump");
 
-				var nb;
-				for(var i = 0; i < this.targets.length; i++){
-					
-					nb = this.neighbour(this.targets[i]);
-					if(nb != null){
-						nb.receive(this.pos);
+						var nb = this.neighbour(this.targets[i].dir);
+						if(nb != null)
+							nb.receive(this.pos);
 					}
 				}
 			}
@@ -94,13 +167,15 @@ function Pipe(pos, t, rot){
 
 	this.receive = function(other){
 		var origin = relation(this.pos, other);
-		
 		if(origin == "unknown")
 			return null;
 
-		for(var i = 0; i < pipes[this.group].paths(this.rot)[origin].length; i++){
+		if(pipes[this.group].paths(this.rot)[origin] != null){
 			this.reached = true;
-			this.targets.push(pipes[this.group].paths(this.rot)[origin][i]);
+			this.targets.push({
+				dir: pipes[this.group].paths(this.rot)[origin],
+				state: 0
+			});
 		}
 	}
 
