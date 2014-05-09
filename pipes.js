@@ -135,11 +135,11 @@ function Pipe(pos, t, rot){
 	this.sprite = getSprite(pipes[this.group].src(rot));
 
 	this.targets = [];
-	this.reached = false;
 	this.mixer = 0;
+	this.locked = false;
 
 	this.update = function(){
-		if(this.reached){
+		if(this.locked){
 			for(var i = 0; i < this.targets.length; i++){
 				
 				this.targets[i].state++;
@@ -171,7 +171,7 @@ function Pipe(pos, t, rot){
 			return null;
 
 		if(pipes[this.group].paths(this.rot)[origin] != null){
-			this.reached = true;
+			this.locked = true;
 			this.targets.push({
 				dir: pipes[this.group].paths(this.rot)[origin],
 				state: 0
@@ -193,7 +193,8 @@ function Pipe(pos, t, rot){
 	}
 
 	this.sprite.on("pressup", function(){
-		map.input(this, null);
+		if(!this.locked)
+			map.input(this, null);
 	}, this);
 
 }
@@ -206,6 +207,5 @@ function getSprite(type){
 	};
 
 	var spriteSheet = new createjs.SpriteSheet(data);
-
 	return new createjs.Sprite(spriteSheet, "run");
 }

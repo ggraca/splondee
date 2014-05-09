@@ -54,6 +54,8 @@ function Map(){
 				this.pipes[i][j].update();
 			}
 		}
+		if(this.selectedPipe != null && this.selectedPipe.locked)
+			this.selectedPipe = null;
 	}
 
 	this.flow = function(){
