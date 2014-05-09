@@ -10,6 +10,7 @@ function init(){
 }
 
 function update(){
+	//mainMenu();
 	map.update();
 	stage.update();
 }
