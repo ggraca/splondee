@@ -137,6 +137,7 @@ function Pipe(pos, t, rot){
 	this.targets = [];
 	this.mixer = 0;
 	this.locked = false;
+	this.liq = [];
 
 	this.update = function(){
 		if(this.locked){
@@ -158,14 +159,14 @@ function Pipe(pos, t, rot){
 
 						var nb = this.neighbour(this.targets[i].dir);
 						if(nb != null)
-							nb.receive(this.pos);
+							nb.receive(this.pos, this.liq);
 					}
 				}
 			}
 		}
 	}
 
-	this.receive = function(other){
+	this.receive = function(other, liq){
 		var origin = relation(this.pos, other);
 		if(origin == "unknown")
 			return null;
@@ -176,6 +177,9 @@ function Pipe(pos, t, rot){
 				dir: pipes[this.group].paths(this.rot)[origin],
 				state: 0
 			});
+			
+			for(var i = 0; i < liq.length; i++)
+				this.liq.push(liq[i]);
 		}
 	}
 

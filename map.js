@@ -12,7 +12,16 @@ function Map(){
 
 	this.generate = function(){
 		for(var i = 0; i < 5; i++){
-			var drink = new Drink(i, "Drink");
+			var rand = Math.floor((Math.random() * 10));
+			var s;
+			if(rand == 0) s = "beer";
+			else if(rand == 1) s = "wine";
+			else if(rand == 2) s = "tequila";
+			else if(rand == 3) s = "soda";
+			else if(rand == 4) s = "liquor";
+			else continue;
+
+			var drink = new Drink(i, s);
 			this.drinkStage.addChild(drink.sprite);
 			this.drinks.push(drink);
 		}
@@ -42,7 +51,7 @@ function Map(){
 		}
 
 		for(var i = 0; i < 11; i++){
-			var cocktail = new Receiver(i, "pipesaida");
+			var cocktail = new Receiver(i, "pipesaida", ["beer", "beer"]);
 			this.cocktailStage.addChild(cocktail.sprite);
 			this.cocktails.push(cocktail);
 		}

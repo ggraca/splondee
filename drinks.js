@@ -1,6 +1,24 @@
-function Drink(pos, img){
+var drinks = {
+	beer: {
+		bottle: "beer"
+	},
+	soda: {
+		bottle: "soda"
+	},
+	liquor: {
+		bottle: "liquor"
+	},
+	tequila: {
+		bottle: "tequila"
+	},
+	wine: {
+		bottle: "wine"
+	}
+};
+
+function Drink(pos, id){
 	this.pos = pos;
-	this.sprite = new createjs.Bitmap("res/img/" + img + ".png");
+	this.sprite = new createjs.Bitmap("res/img/bottles/" + drinks[id].bottle + ".png");
 	this.sprite.x = 100*pos;
 
 	this.under = function(){
@@ -8,7 +26,7 @@ function Drink(pos, img){
 	}
 
 	this.open = function(){
-		this.under().receive({x: 1 + pos * 2, y: -1});
+		this.under().receive({x: 1 + pos * 2, y: -1}, ["beer"]);
 	}
 
 	this.sprite.on("pressup", function(){
