@@ -30,6 +30,7 @@ function Drink(pos, id){
 	}
 
 	this.sprite.on("pressup", function(){
+		flow.start();
 		map.flow();
 	});
 }

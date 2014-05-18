@@ -1,4 +1,4 @@
-var stage, map;
+var stage, map, flow;
 init();
 
 function init(){
@@ -11,6 +11,7 @@ function init(){
 
 function update(){
 	//mainMenu();
+	flow.update();
 	map.update();
 	stage.update();
 }
@@ -30,4 +31,9 @@ function loadLevel(){
 	stage.addChild(map.cocktailStage);
 	map.cocktailStage.x = 125;
 	map.cocktailStage.y = 400;
+
+	flow = new Flow();
+	stage.addChild(flow.sprite);
+	flow.sprite.x = 300;
+	flow.sprite.y = 300;
 }
