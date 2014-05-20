@@ -1,21 +1,22 @@
-var stage, map;
+var stage = new createjs.Stage("myCanvas");
+var map;
 init();
 
 function init(){
-	stage = new createjs.Stage("myCanvas");
-	createjs.Ticker.addEventListener("tick", update);
-	stage.enableMouseOver();
-
-	loadLevel();
+	mainMenu();
 }
 
 function update(){
-	//mainMenu();
 	map.update();
 	stage.update();
 }
 
 function loadLevel(){
+	stage.removeAllChildren();
+
+	var background = new createjs.Bitmap("res/img/backgrounds/gameplay.png");
+	stage.addChild(background);
+
 	map = new Map();
 	map.generate();
 

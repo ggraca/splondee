@@ -1,10 +1,15 @@
 function mainMenu(){
+	createjs.Ticker.addEventListener("tick", stage);
+	stage.enableMouseOver();
 
-	var stageMainMenu = new createjs.Stage("myCanvas");
+	/* BACKGROUND */
+	var background = new createjs.Bitmap("res/img/backgrounds/mainMenu.png");
 
-	createjs.Ticker.addEventListener("tick", stageMainMenu);
+	/* LETTERING */
 
-	stageMainMenu.enableMouseOver();
+	var lettering = new createjs.Bitmap("res/img/slide-to-play.png");
+	lettering.x = 200;
+	lettering.y = 330;
 
 	/* SLIDER MENU - SLIDE TO PLAY */
 
@@ -13,8 +18,8 @@ function mainMenu(){
 
 	var data = {
 	    images: [_spriteSlider],
-	    frames: { width: 50, height: 50, count: 3},
-	    animations: { hover: [0], normal: [1], down: [2] }
+	    frames: { width: 153, height: 209, count: 3},
+	    animations: { normal: [0], hover: [1], down: [2] }
 	};
 
 	var spriteSheet = new createjs.SpriteSheet(data);
@@ -22,7 +27,7 @@ function mainMenu(){
 	var x_origin;
 	var helper = new createjs.ButtonHelper(slider, "normal", "hover", "down");
 
-	slider.x = 50;
+	slider.x = 70;
 	slider.y = 300;
 
 	slider.on("mousedown", function(evt){
@@ -34,35 +39,71 @@ function mainMenu(){
 		update = true;
 	});
 	slider.on("pressup", function (evt) {
-		if(this.x-x_origin>400){
-			alert("success!") // LOAD LEVEL
+		if(this.x-x_origin>440){
+			levelMenu();
 		}
 		else{
 			this.x = x_origin;
 		}
 	})
 
-	/* LOGO ANIMATION */
-
-	var _spriteLogo = new Image();
-	_spriteLogo.src = "res/img/spriteLogo.png"
-	var data2 = {
-	    images: [_spriteLogo],
-	    frames: { width: 600, height: 169, count: 4},
-	    animations: { frame1: [0], frame2: [1], frame3: [2], frame4: [3] }
-	};
-
-	var spriteSheet2 = new createjs.SpriteSheet(data2);
-	var logo = new createjs.Sprite(spriteSheet2, "frame1");
-
-	logo.x = 90;
-	logo.y = 50;
-
-	stageMainMenu.addChild(logo);
-	stageMainMenu.addChild(slider);
-	stageMainMenu.update();
+	stage.addChild(background);
+	stage.addChild(lettering);
+	stage.addChild(slider);
+	stage.update();
 }
 
 function levelMenu(){
+	stage.removeAllChildren();
+	createjs.Ticker.addEventListener("tick", stage);
+	stage.enableMouseOver();
 
+	/* BACKGROUND */
+	var background = new createjs.Bitmap("res/img/backgrounds/levelMenu.png");
+	stage.addChild(background);
+
+	/* GENERATE BUTTONS FOR EVERY LEVEL */	
+	var offsetX = 130;
+	var offsetY = 50;
+
+	var buttonLevelSprite = [];
+	var buttonLevelHelper = [];
+	var level = 0;
+
+	for(var a=0;a<=2;a++){
+		for(var b=0;b<=2;b++){
+			var _spriteLevel = new Image();
+			_spriteLevel.src = "res/img/levels/level" + (level+1) + ".png";
+
+			var data = {
+			    images: [_spriteLevel],
+			    frames: { width: 150, height: 150, count: 3},
+			    animations: { normal: [0], blocked: [1], hover: [2] }
+			};
+
+			var spriteSheet = new createjs.SpriteSheet(data);
+			buttonLevelSprite[level] = new createjs.Sprite(spriteSheet, "normal");
+			if(level==0) // LEVEL IS AVAILABLE
+			{
+				buttonLevelHelper[level] = new createjs.ButtonHelper(buttonLevelSprite[level], "normal", "hover");
+			}
+			else
+			{
+				buttonLevelHelper[level] = new createjs.ButtonHelper(buttonLevelSprite[level], "blocked");
+				buttonLevelSprite[level].mouseEnabled = false;
+			}
+
+			buttonLevelSprite[level].x = b * 200 + offsetX;
+			buttonLevelSprite[level].y = a * 150 + offsetY;
+
+			stage.addChild(buttonLevelSprite[level]);
+			level++;
+		}
+	}
+
+	buttonLevelSprite[0].on("mousedown", function(evt){
+		loadLevel();
+	});
+
+	stage.update();
 }
