@@ -57,13 +57,15 @@ function Pipe(pos, t, rot){
 
 	this.flows = pipes[t].flows(rot);
 	this.loadSprite(pipes[t].src(rot));
-	this.setContainer();
+	this.setContainers();
 
 	this.locked = false;
-
 	this.mixer = false;
-	if(t == "mixer")
+
+	if(t == "mixer"){
 		this.mixer = true;
+		//this.locked = true;
+	}
 
 
 	this.update = function(){
@@ -103,10 +105,8 @@ function Pipe(pos, t, rot){
 			return null;
 
 		for(var i = 0; i < this.flows.length; i++){
-			if(this.flows[i].start(origin, liq)){
+			if(this.flows[i].start(origin, liq))
 				this.locked = true;
-				this.above.spriteSheet = loadSprite("home").spriteSheet;
-			}
 		}
 	}
 
@@ -139,7 +139,6 @@ function Pipe(pos, t, rot){
 		if(!this.locked)
 			map.input(this, null);
 	}, this);
-
 }
 
 Pipe.prototype.loadSprite = function(type){
@@ -154,9 +153,11 @@ Pipe.prototype.loadSprite = function(type){
 	this.above = new createjs.Sprite(spriteSheet, "normal");
 }
 
-Pipe.prototype.setContainer = function(){
+Pipe.prototype.setContainers = function(){
 	//create
 	this.stage = new createjs.Container();
+	this.stage.y = 50 * this.pos.y;
+	this.stage.x = 50 * this.pos.x;
 
 	//add pipe sprite
 	this.stage.addChild(this.under);
@@ -171,4 +172,6 @@ Pipe.prototype.setContainer = function(){
 	var hit = new createjs.Shape();
 	hit.graphics.beginFill("#000").drawRect(0, 0, 50, 50);
 	this.stage.hitArea = hit;
+
+	
 }

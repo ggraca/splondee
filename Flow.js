@@ -25,6 +25,8 @@ function Flow(type, rot){
 
 		this.liq = liq;
 		this.reached = true;
+
+		return true;
 	}
 
 	this.update = function(){

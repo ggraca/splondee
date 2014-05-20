@@ -24,7 +24,7 @@ Receiver.prototype.loadSprite = function(){
 	};
 	var spriteSheet = new createjs.SpriteSheet(data);
 
-	console.log(drinks[this.liq].glass);
+
 	//sprite
 	this.sprite = new createjs.Sprite(spriteSheet, "empty");
 

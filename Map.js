@@ -11,17 +11,13 @@ var level1 = {
 }
 
 function Map(){
-	//this.mapStage = new createjs.Container();
 	this.pipes = [];
-	this.matrixStage = new createjs.Container();
-
 	this.drinks = [];
-	this.drinkStage = new createjs.Container();
-
 	this.cocktails = [];
-	this.cocktailStage = new createjs.Container();
-
 	this.selectedPipe = null;
+
+	this.generate();
+	this.setContainers();
 
 	this.load = function(){
 		for(var i = 0; i < 5; i++){
@@ -39,11 +35,7 @@ function Map(){
 			for(var j = 0; j < 11; j++){
 
 				var pipe = new Pipe({x: j, y: i}, level1.pipes[i][j][0], level1.pipes[i][j][1]);
-
 				this.matrixStage.addChild(pipe.stage);
-				pipe.stage.y = 50*i;
-				pipe.stage.x = 50*j;
-
 				line.push(pipe);
 			}
 			this.pipes.push(line);
@@ -58,58 +50,6 @@ function Map(){
 			var cocktail = new Receiver(i, level1.receiver[i]);
 			this.cocktailStage.addChild(cocktail.sprite);
 			this.cocktails.push(cocktail);
-		}
-	}
-
-	this.generate = function(){
-		for(var i = 0; i < 5; i++){
-			var rand = Math.floor((Math.random() * 10));
-			var s;
-			if(rand == 0) s = "beer";
-			else if(rand == 1) s = "wine";
-			else if(rand == 2) s = "tequila";
-			else if(rand == 3) s = "soda";
-			else if(rand == 4) s = "liquor";
-			else continue;
-
-			var drink = new Drink(i, s);
-			this.drinkStage.addChild(drink.sprite);
-			this.drinks.push(drink);
-		}
-
-		for(var i = 0; i < 5; i++){
-			var line = [];
-			for(var j = 0; j < 11; j++){
-				
-				var rand = Math.floor((Math.random() * 11));
-				var rot = Math.floor((Math.random() * 4));
-				var s;
-
-				if(rand < 3) s = "rect";
-				else if(rand < 6) s = "curve";
-				else if(rand < 8) s = "segundo";
-				else if(rand < 10) s = "bridge";
-				else if(rand == 10) s = "mixer";
-
-				var pipe = new Pipe({x: j, y: i}, s, rot);
-
-				this.matrixStage.addChild(pipe.stage);
-				pipe.stage.x = 50*j;
-				pipe.stage.y = 50*i;
-
-				line.push(pipe);
-			}
-			this.pipes.push(line);
-		}
-
-		for(var i = 0; i < 11; i++){
-			if(i == 7){
-				var cocktail = new Receiver(i, "beer");
-				this.cocktailStage.addChild(cocktail.sprite);
-				this.cocktails.push(cocktail);
-			}
-			else
-				this.cocktails.push(null);
 		}
 	}
 
@@ -153,7 +93,6 @@ function Map(){
 			pipe.above.gotoAndPlay("selected");
 		}
 		else{
-			//console.log(relation(pipe.pos, this.selectedPipe.pos));
 			//if(relation(pipe.pos, this.selectedPipe.pos) != "unknown"){
 				this.swap(pipe, this.selectedPipe);
 				this.selectedPipe.above.gotoAndPlay("normal");
@@ -161,4 +100,82 @@ function Map(){
 			//}
 		}
 	}
+}
+
+Map.prototype.generate = function(){
+
+	for(var i = 0; i < 5; i++){
+		var rand = Math.floor((Math.random() * 10));
+		var s;
+		if(rand == 0) s = "beer";
+		else if(rand == 1) s = "wine";
+		else if(rand == 2) s = "tequila";
+		else if(rand == 3) s = "soda";
+		else if(rand == 4) s = "liquor";
+		else continue;
+
+		var drink = new Drink(i, s);
+		this.drinks.push(drink);
+	}
+
+	for(var i = 0; i < 5; i++){
+		var line = [];
+		for(var j = 0; j < 11; j++){
+			
+			var rand = Math.floor((Math.random() * 11));
+			var rot = Math.floor((Math.random() * 4));
+			var s;
+
+			if(rand < 3) s = "rect";
+			else if(rand < 6) s = "curve";
+			else if(rand < 8) s = "segundo";
+			else if(rand < 10) s = "bridge";
+			else s = "mixer";
+
+			var pipe = new Pipe({x: j, y: i}, s, rot);
+			line.push(pipe);
+		}
+		this.pipes.push(line);
+	}
+
+	for(var i = 0; i < 11; i++){
+		if(i == 7){
+			var cocktail = new Receiver(i, "beer");
+			this.cocktails.push(cocktail);
+		}
+		else
+			this.cocktails.push(null);
+	}
+}
+
+Map.prototype.setContainers = function(){
+	this.matrixStage = new createjs.Container();	
+	this.matrixStage.x = 125;
+	this.matrixStage.y = 150;
+
+	this.drinkStage = new createjs.Container();
+	this.drinkStage.x = 150;
+	this.drinkStage.y = 25;
+
+	this.cocktailStage = new createjs.Container();
+	this.cocktailStage.x = 125;
+	this.cocktailStage.y = 400;
+
+	for(var i = 0; i < this.drinks.length; i++){
+		if(this.drinks[i] != null)
+			this.drinkStage.addChild(this.drinks[i].sprite);
+	}
+
+	for(var i = 0; i < this.pipes.length; i++){
+		for(var j = 0; j < this.pipes[i].length; j++){
+			if(this.pipes[i][j] != null)
+				this.matrixStage.addChild(this.pipes[i][j].stage);
+		}
+	}
+
+	for(var i = 0; i < this.cocktails.length; i++){
+		if(this.cocktails[i] != null)
+			this.cocktailStage.addChild(this.cocktails[i].sprite);
+	}
+
 }
