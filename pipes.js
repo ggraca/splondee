@@ -1,127 +1,40 @@
-var pipes = {
+var crap = {
 	rect: {
-		src: function(rot){
-			switch(rot){
-				case 1:
-				case 3:
-					return "rect1";
-
-				default:
-					return "rect0";
-			}
-		},
 		paths: function(rot){
 			switch(rot){
 				case 1:
 				case 3:
-					return {
-						left: null,
-					 	right: null,
-					 	top: "down",
-					 	down: "top"
-					};
+					return ["down", "top"];
 
 				default:
-					return {
-						left: "right",
-					 	right: "left",
-					 	top: null,
-					 	down: null
-					};
+					return ["right", "left"];
 			}
 		}
 	},
 	curve: {
-		src: function(rot){
-			return "curve" + rot;
-		},
 		paths: function(rot){
 			switch(rot){
 				case 1:
-					return {
-						left: null,
-					 	right: "top",
-					 	top: "right",
-					 	down: null
-					};
-
+					return ["top", "right"];
 				case 2:
-					return {
-						left: null,
-					 	right: "down",
-					 	top: null,
-					 	down: "right"
-					};
-
+					return ["down", "right"];
 				case 3:
-					return {
-						left: "down",
-					 	right: null,
-					 	top: null,
-					 	down: "left"
-					};
-
+					return ["down", "left"];
 				default:
-					return {
-						left: "top",
-					 	right: null,
-					 	top: "left",
-					 	down: null
-					};
+					return ["top", "left"];
 			}
-		}
-	},
-	segundo: {
-		src: function(rot){
-			if(rot == 0 || rot == 2)
-				return "segundo" + 0;
-			return "segundo" + 1;
-		},
-		paths: function(rot){
-			switch(rot){
-				case 1:
-				case 3:
-					return {
-						left: "down",
-					 	right: "top",
-					 	top: "right",
-					 	down: "left"
-					};
-
-				default:
-					return {
-						left: "top",
-					 	right: "down",
-					 	top: "left",
-					 	down: "right"
-					};
-			}
-		}
-	},
-	bridge: {
-		src: function(rot){
-			return "bridge";
-		},
-		paths: function(rot){
-			return {
-				left: "right",
-			 	right: "left",
-			 	top: "down",
-			 	down: "top"
-			};
 		}
 	},
 	mixer: {
-		src: function(rot){
-			return "home";
-		},
 		paths: function(rot){
-			return {
-				left: "mixer",
-			 	right: "mixer",
-			 	top: null,
-			 	down: null
-			};
+			switch(rot){
+				case 1:
+					return ["right", "mixer"];
+				case 2:
+					return ["mixer", "down"];
+				default:
+					return ["left", "mixer"];
+			}
 		}
 	}
-}
+};

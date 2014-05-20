@@ -90,9 +90,9 @@ function Map(){
 
 				var pipe = new Pipe({x: j, y: i}, s, rot);
 
-				pipe.sprite.x = 50*j;
-				pipe.sprite.y = 50*i;
 				this.matrixStage.addChild(pipe.stage);
+				pipe.stage.x = 50*j;
+				pipe.stage.y = 50*i;
 
 				line.push(pipe);
 			}
@@ -131,13 +131,13 @@ function Map(){
 		this.pipes[b.pos.y][b.pos.x] = b;
 
 
-		var coord = {x: a.sprite.x, y: a.sprite.y};
+		var coord = {x: a.stage.x, y: a.stage.y};
 		
-		a.sprite.x = b.sprite.x;
-		a.sprite.y = b.sprite.y;
+		a.stage.x = b.stage.x;
+		a.stage.y = b.stage.y;
 
-		b.sprite.x = coord.x;
-		b.sprite.y = coord.y;
+		b.stage.x = coord.x;
+		b.stage.y = coord.y;
 	}
 
 	this.input = function(pipe, dir){

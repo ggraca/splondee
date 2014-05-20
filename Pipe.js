@@ -1,51 +1,100 @@
+var pipes = {
+	rect: {
+		src: function(rot){
+			switch(rot){
+				case 1:
+				case 3:
+					return "rect1";
+
+				default:
+					return "rect0";
+			}
+		},
+		flows: function(rot){
+			return [new Flow("rect", rot)];
+		}
+	},
+	curve: {
+		src: function(rot){
+			return "curve" + rot;
+		},
+		flows: function(rot){
+			return [new Flow("curve", rot)];
+		}
+	},
+	segundo: {
+		src: function(rot){
+			if(rot == 0 || rot == 2)
+				return "segundo" + 0;
+			return "segundo" + 1;
+		},
+		flows: function(rot){
+			if(rot % 2 == 0)
+				return [new Flow("curve", 0), new Flow("curve", 2)];
+			return [new Flow("curve", 1), new Flow("curve", 3)];
+		}
+	},
+	bridge: {
+		src: function(rot){
+			return "bridge";
+		},
+		flows: function(rot){
+			return [new Flow("rect", 0), new Flow("rect", 1)];
+		}
+	},
+	mixer: {
+		src: function(rot){
+			return "mixer";
+		},
+		flows: function(rot){
+			return [new Flow("mixer", 0), new Flow("mixer", 1), new Flow("mixer", 2)];
+		}
+	}
+};
+
 function Pipe(pos, t, rot){
-	this.group = t;
-	this.rot = rot;
 	this.pos = pos;
 
-	this.stage = new createjs.Container();
-	this.sprite = pipeSprite(pipes[this.group].src(rot));
-	this.stage.addChild(this.sprite);
+	this.flows = pipes[t].flows(rot);
+	this.loadSprite(pipes[t].src(rot));
+	this.setContainer();
 
-	//for(var i = 0; i)	
-
-	this.targets = [];
-	this.mixer = 0;
 	this.locked = false;
-	this.liq = [];
+
+	this.mixer = false;
+	if(t == "mixer")
+		this.mixer = true;
+
 
 	this.update = function(){
-		this.updateFlow();
-		this.updateAnimation();
-	}
+		if(this.mixer){
+			this.flows[0].update();
+			this.flows[1].update();
 
-	this.updateFlow = function(){
-		for(var i = 0; i < this.targets.length; i++){
-			
-			this.targets[i].state++;
-			if(this.targets[i].state == 24){
-				if(this.targets[i].dir == "mixer"){
-					this.mixer++;
-					if(this.mixer == 2){
-						this.targets.push({
-							dir: "down",
-							state: 0
-						});
-					}
-				}
-				else{
-					this.sprite.gotoAndPlay("jump");
+			if(this.flows[0].ready && this.flows[1].ready){
+				this.flows[0].ready = false;
+				this.flows[1].ready = false;
 
-					var nb = this.neighbour(this.targets[i].dir);
+				this.under.gotoAndPlay("anim");
+				this.flows[2].start("mixer", drinks[this.flows[0].liq].join(this.flows[1].liq)); //concat como deve ser
+				this.mixer = false;
+			}
+		}
+		else{
+			for(var i = 0; i < this.flows.length; i++){
+				this.flows[i].update();
+
+				if(this.flows[i].ready){
+
+					//decidir se se poe antes ou depois da verificação do null
+					this.flows[i].ready = false;
+
+					var nb = this.neighbour(this.flows[i].exit)
 					if(nb != null)
-						nb.receive(this.pos, this.liq);
+						nb.receive(this.pos, this.flows[i].liq);
 				}
 			}
 		}
-	}
-
-	this.updateAnimation = function(){
-
 	}
 
 	this.receive = function(other, liq){
@@ -53,15 +102,11 @@ function Pipe(pos, t, rot){
 		if(origin == "unknown")
 			return null;
 
-		if(pipes[this.group].paths(this.rot)[origin] != null){
-			this.locked = true;
-			this.targets.push({
-				dir: pipes[this.group].paths(this.rot)[origin],
-				state: 0
-			});
-			
-			for(var i = 0; i < liq.length; i++)
-				this.liq.push(liq[i]);
+		for(var i = 0; i < this.flows.length; i++){
+			if(this.flows[i].start(origin, liq)){
+				this.locked = true;
+				this.above.spriteSheet = loadSprite("home").spriteSheet;
+			}
 		}
 	}
 
@@ -80,20 +125,40 @@ function Pipe(pos, t, rot){
 		return null;
 	}
 
-	this.sprite.on("click", function(){
+	this.stage.on("click", function(){
 		if(!this.locked)
 			map.input(this, null);
 	}, this);
 
 }
 
-function pipeSprite(type){
+Pipe.prototype.loadSprite = function(type){
 	var data = {
-		images: ["res/img/" + type + ".png"],
+		images: ["res/img/pipes/" + type + ".png"],
 		frames: {width:50, height:50},
-		animations: {run: [0], jump: [1]}
+		animations: {img: [0], anim: [0, 0, "img"]}
 	};
 
 	var spriteSheet = new createjs.SpriteSheet(data);
-	return new createjs.Sprite(spriteSheet, "run");
+	this.under = new createjs.Sprite(spriteSheet, "run");
+	this.above = new createjs.Sprite(spriteSheet, "run");
+}
+
+Pipe.prototype.setContainer = function(){
+	//create
+	this.stage = new createjs.Container();
+
+	//add pipe sprite
+	this.stage.addChild(this.under);
+	
+	//add flows sprites
+	for(var i = 0; i < this.flows.length; i++)
+		this.stage.addChild(this.flows[i].container);
+
+	this.stage.addChild(this.above);
+
+	//set hitArea
+	var hit = new createjs.Shape();
+	hit.graphics.beginFill("#000").drawRect(0, 0, 50, 50);
+	this.stage.hitArea = hit;
 }

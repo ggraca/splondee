@@ -1,15 +1,31 @@
-function Flow(){
+function Flow(type, rot){
+	this.type = type;
+	this.rot = rot;
+
 	this.state = 0;
 	this.reached = false;
 	this.ready = false;
-	this.sprite = flowSprite("teste");
+	this.container = new createjs.Container();
 
-	this.start = function(type){
-		//add argument
-		//choose flowA or flowB
+	this.paths = crap[type].paths(rot);
 
+	this.start = function(from, liq){
+		if(this.reached) return false;
+
+		if(this.paths[0] == from){
+			this.exit = this.paths[1];
+			this.loadSprite(liq, "normal");
+		}
+		else if(this.paths[1] == from){
+			this.exit = this.paths[0];
+			this.loadSprite(liq, "reversed");
+		}
+		else
+			return false;
+
+		this.loadSprite(liq);
+		this.liq = liq;
 		this.reached = true;
-		this.sprite.gotoAndPlay("flowing");
 	}
 
 	this.update = function(){
@@ -18,16 +34,16 @@ function Flow(){
 			if(this.state == 24)
 				this.ready = true;
 		}
-	}	
+	}
 }
 
-function flowSprite(type){
+Flow.prototype.loadSprite = function(liq, anim){
 	var data = {
-		images: ["res/img/" + type + ".png"],
+		images: ["res/img/pipeanimations/" + this.type + this.rot + liq + ".png"],
 		frames: {width:50, height:50},
-		animations: {empty: 0, flowing: [0, 22, "full"], full: 23}
+		animations: {empty: 23, normal: [0, 13, "full"], reversed: [15, 29, "full"], full: 14}
 	};
 
 	var spriteSheet = new createjs.SpriteSheet(data);
-	return new createjs.Sprite(spriteSheet, "empty");
+	this.container.addChild(new createjs.Sprite(spriteSheet, anim));
 }
