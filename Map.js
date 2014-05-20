@@ -7,7 +7,7 @@ var level1 = {
 		[["rect", 1], ["curve", 1], ["rect", 1], ["curve", 1], ["rect", 1], ["curve", 1], ["rect", 1], ["curve", 1], ["rect", 1], ["curve", 1], ["curve", 1]],
 		[["rect", 1], ["curve", 1], ["rect", 1], ["curve", 1], ["rect", 1], ["curve", 1], ["rect", 1], ["curve", 1], ["rect", 1], ["curve", 0], ["curve", 1]]
 	],
-	receiver: [null, null, null, "a", null, null, null, null, null, null, null]
+	receiver: [null, null, null, "beer", null, null, null, null, null, null, null]
 }
 
 function Map(){
@@ -40,9 +40,9 @@ function Map(){
 
 				var pipe = new Pipe({x: j, y: i}, level1.pipes[i][j][0], level1.pipes[i][j][1]);
 
-				pipe.sprite.x = 50*j;
-				pipe.sprite.y = 50*i;
-				this.matrixStage.addChild(pipe.sprite);
+				this.matrixStage.addChild(pipe.stage);
+				pipe.stage.y = 50*i;
+				pipe.stage.x = 50*j;
 
 				line.push(pipe);
 			}
@@ -50,10 +50,12 @@ function Map(){
 		}
 
 		for(var i = 0; i < 11; i++){
-			if(level1.receiver[i] == null)
+			if(level1.receiver[i] == null){
+				this.cocktails.push(null);
 				continue;
+			}
 
-			var cocktail = new Receiver(i, "pipesaida", ["beer", "beer"]);
+			var cocktail = new Receiver(i, level1.receiver[i]);
 			this.cocktailStage.addChild(cocktail.sprite);
 			this.cocktails.push(cocktail);
 		}
@@ -79,14 +81,15 @@ function Map(){
 			var line = [];
 			for(var j = 0; j < 11; j++){
 				
-				var rand = Math.floor((Math.random() * 4));
+				var rand = Math.floor((Math.random() * 11));
 				var rot = Math.floor((Math.random() * 4));
 				var s;
 
-				if(rand == 0) s = "rect";
-				else if(rand == 1) s = "curve";
-				else if(rand == 2) s = "segundo";
-				else if(rand == 3) s = "mixer";
+				if(rand < 3) s = "rect";
+				else if(rand < 6) s = "curve";
+				else if(rand < 8) s = "segundo";
+				else if(rand < 10) s = "bridge";
+				else if(rand == 10) s = "mixer";
 
 				var pipe = new Pipe({x: j, y: i}, s, rot);
 
@@ -100,9 +103,13 @@ function Map(){
 		}
 
 		for(var i = 0; i < 11; i++){
-			var cocktail = new Receiver(i, "pipesaida", ["beer", "beer"]);
-			this.cocktailStage.addChild(cocktail.sprite);
-			this.cocktails.push(cocktail);
+			if(i == 7){
+				var cocktail = new Receiver(i, "beer");
+				this.cocktailStage.addChild(cocktail.sprite);
+				this.cocktails.push(cocktail);
+			}
+			else
+				this.cocktails.push(null);
 		}
 	}
 
@@ -143,10 +150,15 @@ function Map(){
 	this.input = function(pipe, dir){
 		if(this.selectedPipe == null){
 			this.selectedPipe = pipe;
+			pipe.above.gotoAndPlay("selected");
 		}
 		else{
-			this.swap(pipe, this.selectedPipe);
-			this.selectedPipe = null;
+			//console.log(relation(pipe.pos, this.selectedPipe.pos));
+			//if(relation(pipe.pos, this.selectedPipe.pos) != "unknown"){
+				this.swap(pipe, this.selectedPipe);
+				this.selectedPipe.above.gotoAndPlay("normal");
+				this.selectedPipe = null;
+			//}
 		}
 	}
 }

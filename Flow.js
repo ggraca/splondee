@@ -23,7 +23,6 @@ function Flow(type, rot){
 		else
 			return false;
 
-		this.loadSprite(liq);
 		this.liq = liq;
 		this.reached = true;
 	}
@@ -31,7 +30,7 @@ function Flow(type, rot){
 	this.update = function(){
 		if(this.reached && !this.ready){
 			this.state++;
-			if(this.state == 24)
+			if(this.state == 15)
 				this.ready = true;
 		}
 	}
@@ -39,9 +38,9 @@ function Flow(type, rot){
 
 Flow.prototype.loadSprite = function(liq, anim){
 	var data = {
-		images: ["res/img/pipeanimations/" + this.type + this.rot + liq + ".png"],
+		images: ["res/img/pipeanimations/" + drinks[liq].anim + "/" + this.type + this.rot + ".png"],
 		frames: {width:50, height:50},
-		animations: {empty: 23, normal: [0, 13, "full"], reversed: [15, 29, "full"], full: 14}
+		animations: {normal: [0, 13, "full"], reversed: [15, 29, "full"], full: 14}
 	};
 
 	var spriteSheet = new createjs.SpriteSheet(data);

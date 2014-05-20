@@ -3,11 +3,16 @@ init();
 
 function init(){
 	stage = new createjs.Stage("myCanvas");
-	mainMenu();
+	stage.enableMouseOver();
+	createjs.Ticker.addEventListener("tick", update);
+
+	//mainMenu();
+	loadLevel();
 }
 
 function update(){
-	map.update();
+	if(map != null)
+		map.update();
 	stage.update();
 }
 

@@ -1,23 +1,34 @@
-function Receiver(pos, img, liq){
+function Receiver(pos, liq){
 	this.liq = liq;
 	this.pos = pos;
-	this.sprite = new createjs.Bitmap("res/img/" + img + ".png");
-	this.sprite.x = 50*pos;
+
+	this.loadSprite();
 
 	this.receive = function(pos, liq){
-		var n = this.liq.length;
-		if(this.liq.length != liq.length){
+		if(liq == this.liq){
+			this.sprite.gotoAndPlay("filling");
+			alert("GG");
+		}
+		else{
 			alert("BG");
-			return;
 		}
-
-		for(var i = 0; i < n; i++){
-			if(liq[i] != this.liq[i]){
-				alert("BG");
-				return;
-			}
-		}
-
-		alert("GG");
 	}
+}
+
+Receiver.prototype.loadSprite = function(){
+	//spritesheet
+	var data = {
+		images: ["res/img/receivers/" + drinks[this.liq].glass + ".png"],
+		frames: {width:50, height:75},
+		animations: {empty: [0], filling: [1, 13, "full"], full: [14]}
+	};
+	var spriteSheet = new createjs.SpriteSheet(data);
+
+	console.log(drinks[this.liq].glass);
+	//sprite
+	this.sprite = new createjs.Sprite(spriteSheet, "empty");
+
+
+	//pos
+	this.sprite.x = 50*this.pos;
 }

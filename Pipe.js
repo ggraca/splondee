@@ -125,6 +125,16 @@ function Pipe(pos, t, rot){
 		return null;
 	}
 
+	this.stage.on("mouseover", function(){
+		if(map.selectedPipe != this)
+			this.above.gotoAndPlay("hover");
+	}, this);
+
+	this.stage.on("mouseout", function(){
+		if(map.selectedPipe != this)
+			this.above.gotoAndPlay("normal");
+	}, this);
+
 	this.stage.on("click", function(){
 		if(!this.locked)
 			map.input(this, null);
@@ -136,12 +146,12 @@ Pipe.prototype.loadSprite = function(type){
 	var data = {
 		images: ["res/img/pipes/" + type + ".png"],
 		frames: {width:50, height:50},
-		animations: {img: [0], anim: [0, 0, "img"]}
+		animations: {normal: [0], hover: [1], selected: [2], anim: [0, 0, "img"]}
 	};
 
 	var spriteSheet = new createjs.SpriteSheet(data);
-	this.under = new createjs.Sprite(spriteSheet, "run");
-	this.above = new createjs.Sprite(spriteSheet, "run");
+	this.under = new createjs.Sprite(spriteSheet, "normal");
+	this.above = new createjs.Sprite(spriteSheet, "normal");
 }
 
 Pipe.prototype.setContainer = function(){

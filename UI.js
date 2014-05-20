@@ -1,6 +1,5 @@
 function mainMenu(){
-	createjs.Ticker.addEventListener("tick", stage);
-	stage.enableMouseOver();
+	
 
 	/* BACKGROUND */
 	var background = new createjs.Bitmap("res/img/backgrounds/mainMenu.png");
@@ -55,8 +54,6 @@ function mainMenu(){
 
 function levelMenu(){
 	stage.removeAllChildren();
-	createjs.Ticker.addEventListener("tick", stage);
-	stage.enableMouseOver();
 
 	/* BACKGROUND */
 	var background = new createjs.Bitmap("res/img/backgrounds/levelMenu.png");

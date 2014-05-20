@@ -4,7 +4,7 @@ var crap = {
 			switch(rot){
 				case 1:
 				case 3:
-					return ["down", "top"];
+					return ["top", "down"];
 
 				default:
 					return ["right", "left"];
@@ -15,11 +15,11 @@ var crap = {
 		paths: function(rot){
 			switch(rot){
 				case 1:
-					return ["top", "right"];
+					return ["right", "top"];
 				case 2:
-					return ["down", "right"];
+					return ["right", "down"];
 				case 3:
-					return ["down", "left"];
+					return ["left", "down"];
 				default:
 					return ["top", "left"];
 			}
