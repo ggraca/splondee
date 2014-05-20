@@ -5,8 +5,12 @@ function init(){
 	stage = new createjs.Stage("myCanvas");
 	stage.enableMouseOver();
 	createjs.Ticker.addEventListener("tick", update);
+	var srcMusic = "res/sound/music.mp3";
+	createjs.Sound.registerSound(srcMusic);
 
-	//mainMenu();
+	//createjs.Sound.play(srcMusic, "none", 0, 0, -1, 0.3, 0);
+ 	//mainMenu();
+
 	loadLevel();
 }
 
