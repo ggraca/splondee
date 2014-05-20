@@ -1,8 +1,8 @@
-var stage = new createjs.Stage("myCanvas");
-var map;
+var stage, map;
 init();
 
 function init(){
+	stage = new createjs.Stage("myCanvas");
 	mainMenu();
 }
 

@@ -3,16 +3,19 @@ var drinks = {
 		bottle: "beer"
 	},
 	soda: {
-		bottle: "soda"
+		bottle: "soda",
 	},
 	liquor: {
-		bottle: "liquor"
+		bottle: "liquor",
 	},
 	tequila: {
-		bottle: "tequila"
+		bottle: "tequila",
 	},
 	wine: {
-		bottle: "wine"
+		bottle: "wine",
+	},
+	nothing: {
+		bottle: null,
 	}
 };
 
