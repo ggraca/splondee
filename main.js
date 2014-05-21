@@ -5,14 +5,16 @@ function init(){
 	stage = new createjs.Stage("myCanvas");
 	stage.enableMouseOver();
 	createjs.Ticker.addEventListener("tick", update);
+	createjs.Ticker.setFPS(30);
 
 	//mainMenu();
 	loadLevel();
 }
 
 function update(){
-	if(map != null)
+	if(map != null){
 		map.update();
+	}
 	stage.update();
 }
 
@@ -27,4 +29,8 @@ function loadLevel(){
 	stage.addChild(map.matrixStage);
 	stage.addChild(map.drinkStage);
 	stage.addChild(map.cocktailStage);
+}
+
+function gameover(){
+	alert("you failed!");
 }

@@ -77,7 +77,7 @@ function Pipe(pos, t, rot){
 				this.flows[0].ready = false;
 				this.flows[1].ready = false;
 
-				this.under.gotoAndPlay("anim");
+				this.above.gotoAndPlay("anim");
 				this.flows[2].start("mixer", drinks[this.flows[0].liq].join(this.flows[1].liq)); //concat como deve ser
 				this.mixer = false;
 			}
@@ -92,8 +92,11 @@ function Pipe(pos, t, rot){
 					this.flows[i].ready = false;
 
 					var nb = this.neighbour(this.flows[i].exit)
-					if(nb != null)
-						nb.receive(this.pos, this.flows[i].liq);
+					if(nb == null || !nb.receive(this.pos, this.flows[i].liq)){
+						map.flowing--;
+						if(map.flowing == 0)
+							gameover();
+					}
 				}
 			}
 		}
@@ -102,12 +105,18 @@ function Pipe(pos, t, rot){
 	this.receive = function(other, liq){
 		var origin = relation(this.pos, other);
 		if(origin == "unknown")
-			return null;
+			return false;
 
 		for(var i = 0; i < this.flows.length; i++){
-			if(this.flows[i].start(origin, liq))
+			if(this.flows[i].start(origin, liq)){
 				this.locked = true;
+
+				if(this.mixer && ((this.flows[0].reached && !this.flows[1].reached) || (!this.flows[0].reached && this.flows[1].reached)))
+					return false
+				return true;
+			}
 		}
+		return false;
 	}
 
 	

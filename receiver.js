@@ -7,10 +7,10 @@ function Receiver(pos, liq){
 	this.receive = function(pos, liq){
 		if(liq == this.liq){
 			this.sprite.gotoAndPlay("filling");
-			alert("GG");
+			alert("you won!!");
 		}
 		else{
-			alert("BG");
+			gameover();
 		}
 	}
 }

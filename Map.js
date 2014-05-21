@@ -11,10 +11,12 @@ var level1 = {
 }
 
 function Map(){
+	this.time = 25*10;
 	this.pipes = [];
 	this.drinks = [];
 	this.cocktails = [];
 	this.selectedPipe = null;
+	this.open = false;
 
 	this.generate();
 	this.setContainers();
@@ -54,6 +56,10 @@ function Map(){
 	}
 
 	this.update = function(){
+		this.time--;
+		if(this.time <= 0)
+			this.flow();
+
 		for(var i = 0; i < this.pipes.length; i++){
 			for(var j = 0; j < this.pipes[i].length; j++){
 				this.pipes[i][j].update();
@@ -64,6 +70,9 @@ function Map(){
 	}
 
 	this.flow = function(){
+		if(this.open) return;
+		this.open = true;
+		this.flowing = this.drinks.length;
 		for(var i = 0; i < this.drinks.length; i++){
 			this.drinks[i].open();
 		}

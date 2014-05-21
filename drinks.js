@@ -189,7 +189,11 @@ function Drink(pos, type){
 	}
 
 	this.open = function(){
-		this.under().receive({x: 1 + pos * 2, y: -1}, type);
+		if(!this.under().receive({x: 1 + pos * 2, y: -1}, type)){
+			map.flowing--;
+			if(map.flowing == 0)
+				gameover();
+		}
 	}
 
 	this.sprite.on("pressup", function(){
