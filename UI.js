@@ -104,3 +104,75 @@ function levelMenu(){
 
 	stage.update();
 }
+
+function loadMenu(){
+	var _spriteInstructions = new Image();
+	var _spriteBack = new Image();
+	var _spriteHome = new Image();
+	var _spriteSound = new Image();
+
+	_spriteInstructions.src = "res/img/buttons/instructions.png";
+	_spriteBack.src = "res/img/buttons/back.png";
+	_spriteHome.src = "res/img/buttons/home.png";
+	_spriteSound.src = "res/img/buttons/sound.png";
+
+	var dataInstructions = {
+	    images: [_spriteInstructions],
+	    frames: { width: 75, height: 75, count: 2},
+	    animations: { normal: [1], hover: [0] }
+	};
+
+	var dataBack = {
+	    images: [_spriteBack],
+	    frames: { width: 75, height: 75, count: 2},
+	    animations: { normal: [1], hover: [0] }
+	};
+
+	var dataHome = {
+	    images: [_spriteHome],
+	    frames: { width: 75, height: 75, count: 2},
+	    animations: { normal: [1], hover: [0] }
+	};
+
+	var dataSound = {
+	    images: [_spriteSound],
+	    frames: { width: 75, height: 75, count: 2},
+	    animations: { normal: [1], hover: [0] }
+	};
+
+
+	var spriteSheetInstructions = new createjs.SpriteSheet(dataInstructions);
+	var buttonSpriteInstructions = new createjs.Sprite(spriteSheetInstructions, "normal");
+
+	var spriteSheetBack = new createjs.SpriteSheet(dataBack);
+	var buttonSpriteBack = new createjs.Sprite(spriteSheetBack, "normal");
+
+
+	var spriteSheetHome = new createjs.SpriteSheet(dataHome);
+	var buttonSpriteHome = new createjs.Sprite(spriteSheetHome, "normal");
+
+
+	var spriteSheetSound = new createjs.SpriteSheet(dataSound);
+	var buttonSpriteSound = new createjs.Sprite(spriteSheetSound, "normal");
+
+	var helperInstructions = new createjs.ButtonHelper(buttonSpriteInstructions, "normal", "hover");
+	buttonSpriteInstructions.x = 200;
+	buttonSpriteInstructions.y = 525;
+
+	var helperBack = new createjs.ButtonHelper(buttonSpriteBack, "normal", "hover");
+	buttonSpriteBack.x = 300;
+	buttonSpriteBack.y = 525;
+
+	var helperHome = new createjs.ButtonHelper(buttonSpriteHome, "normal", "hover");
+	buttonSpriteHome.x = 400;
+	buttonSpriteHome.y = 525;
+
+	var helperSound = new createjs.ButtonHelper(buttonSpriteSound, "normal", "hover");
+	buttonSpriteSound.x = 500;
+	buttonSpriteSound.y = 525;
+
+	stage.addChild(buttonSpriteInstructions);
+	stage.addChild(buttonSpriteBack);
+	stage.addChild(buttonSpriteHome);
+	stage.addChild(buttonSpriteSound);
+}
