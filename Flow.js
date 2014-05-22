@@ -7,7 +7,7 @@ function Flow(type, rot){
 	this.ready = false;
 	this.container = new createjs.Container();
 
-	this.exits = crap[type].paths(rot);
+	this.exits = flows[type].paths(rot);
 
 	this.start = function(from, liq){
 		if(this.reached) return false;

@@ -1,84 +1,23 @@
-var pipes = {
-	rect: {
-		src: function(rot){
-			switch(rot){
-				case 1:
-				case 3:
-					return "rect1";
-
-				default:
-					return "rect0";
-			}
-		},
-		flows: function(rot){
-			return [new Flow("rect", rot)];
-		}
-	},
-	curve: {
-		src: function(rot){
-			return "curve" + rot;
-		},
-		flows: function(rot){
-			return [new Flow("curve", rot)];
-		}
-	},
-	segundo: {
-		src: function(rot){
-			if(rot == 0 || rot == 2)
-				return "segundo" + 0;
-			return "segundo" + 1;
-		},
-		flows: function(rot){
-			if(rot % 2 == 0)
-				return [new Flow("curve", 0), new Flow("curve", 2)];
-			return [new Flow("curve", 1), new Flow("curve", 3)];
-		}
-	},
-	bridge: {
-		src: function(rot){
-			return "bridge";
-		},
-		flows: function(rot){
-			return [new Flow("rect", 0), new Flow("rect", 1)];
-		}
-	},
-	cross: {
-		src: function(rot){
-			return "cross";
-		},
-		flows: function(rot){
-			return [new Flow("cross", 0)];
-		}
-	},
-	mixer: {
-		src: function(rot){
-			return "mixer";
-		},
-		flows: function(rot){
-			return [new Flow("mixer", 0), new Flow("mixer", 1), new Flow("mixer", 2)];
-		}
-	}
-};
-
 function Pipe(pos, t, rot){
 	this.pos = pos;
-
 	this.flows = pipes[t].flows(rot);
-	this.loadSprite(pipes[t].src(rot));
-	this.setContainers();
-
 	this.locked = false;
+	
 	this.mixer = false;
-
 	if(t == "mixer"){
 		this.mixer = true;
 		//this.locked = true;
 	}
 
+	this.cross = false;
 	if(t == "cross")
 		this.cross = true;
-	else
-		this.cross = false;
+	
+	this.loadSprite(pipes[t].src(rot));
+	this.setContainers();
+	this.setInput();
+
+		
 
 
 	this.update = function(){
@@ -151,8 +90,10 @@ function Pipe(pos, t, rot){
 			return map.pipes[newPos.y][newPos.x];
 
 		return null;
-	}
+	}	
+}
 
+Pipe.prototype.setInput = function(){
 	this.container.on("mouseover", function(){
 		if(map.selectedPipe != this)
 			this.above.gotoAndPlay("hover");
@@ -199,7 +140,5 @@ Pipe.prototype.setContainers = function(){
 	//set hitArea
 	var hit = new createjs.Shape();
 	hit.graphics.beginFill("#000").drawRect(0, 0, 50, 50);
-	this.container.hitArea = hit;
-
-	
+	this.container.hitArea = hit;	
 }
