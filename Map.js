@@ -11,7 +11,7 @@ var level1 = {
 }
 
 function Map(){
-	this.time = 25*10;
+	this.time = 25*60;
 	this.pipes = [];
 	this.drinks = [];
 	this.cocktails = [];

@@ -2,7 +2,10 @@ var drinks = {
 	beer: {
 		bottle: "beer",
 		anim: "beer",
-		glass: "beer",
+		glass: {
+			src: "beer",
+			frames: 18
+		},
 		join: function(a){
 			switch(a){
 				case "beer":
@@ -53,7 +56,10 @@ var drinks = {
 	tequila: {
 		bottle: "tequila",
 		anim: "tequila",
-		glass: "shot",
+		glass: {
+			src: "shot",
+			frames: 9
+		},
 		join: function(a){
 			switch(a){
 				case "tequila":
@@ -72,7 +78,10 @@ var drinks = {
 	wine: {
 		bottle: "wine",
 		anim: "wine",
-		glass: "wine",
+		glass: {
+			src: "wine",
+			frames: 18
+		},
 		join: function(a){
 			switch(a){
 				case "wine":
@@ -87,7 +96,10 @@ var drinks = {
 	desperados: {
 		bottle: null,
 		anim: "beer",
-		glass: "desperados",
+		glass: {
+			src: "desperados",
+			frames: 26
+		},
 		join: function(a){
 			switch(a){
 				case "desperados":
@@ -100,7 +112,10 @@ var drinks = {
 	hybrid: {
 		bottle: null,
 		anim: "hybrid",
-		glass: "hybrid",
+		glass: {
+			src: "hybrid",
+			frames: 28
+		},
 		join: function(a){
 			switch(a){
 				case "hybrid":
@@ -158,7 +173,10 @@ var drinks = {
 	splondee: {
 		bottle: null,
 		anim: "liquor",
-		glass: null,
+		glass: {
+			src: "splondee",
+			frames: 18
+		},
 		join: function(a){
 			switch(a){
 				case "splondee":
