@@ -87,13 +87,13 @@ function Map(){
 		this.pipes[b.pos.y][b.pos.x] = b;
 
 
-		var coord = {x: a.stage.x, y: a.stage.y};
+		var coord = {x: a.container.x, y: a.container.y};
 		
-		a.stage.x = b.stage.x;
-		a.stage.y = b.stage.y;
+		a.container.x = b.container.x;
+		a.container.y = b.container.y;
 
-		b.stage.x = coord.x;
-		b.stage.y = coord.y;
+		b.container.x = coord.x;
+		b.container.y = coord.y;
 	}
 
 	this.input = function(pipe, dir){
