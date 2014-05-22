@@ -23,6 +23,7 @@ function update(){
 	stage.update();
 }
 
+
 function loadLevel(){
 	stage.removeAllChildren();
 
@@ -34,8 +35,32 @@ function loadLevel(){
 	stage.addChild(map.matrixStage);
 	stage.addChild(map.drinkStage);
 	stage.addChild(map.cocktailStage);
+
+	loadMenu();
 }
 
 function gameover(){
-	alert("you failed!");
+	var dialog = new createjs.Bitmap("res/img/backgrounds/gameover.png");
+
+	var _spriteSlider = new Image();
+	_spriteSlider.src = "res/img/buttons/continue.png";
+
+	var data = {
+	    images: [_spriteSlider],
+	    frames: { width: 48, height: 97, count: 2},
+	    animations: { normal: [1], hover: [0] }
+	};
+
+	var spriteSheet = new createjs.SpriteSheet(data);
+	var buttonContinue = new createjs.Sprite(spriteSheet, "normal");
+	var helper = new createjs.ButtonHelper(buttonContinue, "normal", "hover");
+	buttonContinue.x=690;
+	buttonContinue.y=460;
+
+	stage.addChild(dialog);
+	stage.addChild(buttonContinue);
+
+	buttonContinue.on("mousedown", function(evt){
+		levelMenu();
+	});
 }
