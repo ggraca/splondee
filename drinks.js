@@ -19,7 +19,7 @@ var drinks = {
 	},
 	soda: {
 		bottle: "soda",
-		anim: "tequila",
+		anim: "tequila_soda",
 		glass: null,
 		join: function(a){
 			switch(a){
@@ -55,7 +55,7 @@ var drinks = {
 	},
 	tequila: {
 		bottle: "tequila",
-		anim: "tequila",
+		anim: "tequila_soda",
 		glass: {
 			src: "shot",
 			frames: 9
@@ -127,7 +127,7 @@ var drinks = {
 	},
 	liquor_soda: {
 		bottle: null,
-		anim: "liquor",
+		anim: "liquor_extra",
 		glass: null,
 		join: function(a){
 			switch(a){
@@ -142,7 +142,7 @@ var drinks = {
 	},
 	liquor_tequila: {
 		bottle: null,
-		anim: "liquor",
+		anim: "liquor_extra",
 		glass: null,
 		join: function(a){
 			switch(a){
@@ -157,7 +157,7 @@ var drinks = {
 	},
 	tequila_soda: {
 		bottle: null,
-		anim: "tequila",
+		anim: "tequila_soda",
 		glass: null,
 		join: function(a){
 			switch(a){

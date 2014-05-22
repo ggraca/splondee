@@ -138,7 +138,7 @@ Map.prototype.generate = function(){
 			if(rand < 3) s = "rect";
 			else if(rand < 6) s = "curve";
 			else if(rand < 8) s = "segundo";
-			else if(rand < 10) s = "bridge";
+			else if(rand < 10) s = "cross";
 			else s = "mixer";
 
 			var pipe = new Pipe({x: j, y: i}, s, rot);

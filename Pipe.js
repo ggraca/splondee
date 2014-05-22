@@ -42,6 +42,14 @@ var pipes = {
 			return [new Flow("rect", 0), new Flow("rect", 1)];
 		}
 	},
+	cross: {
+		src: function(rot){
+			return "cross";
+		},
+		flows: function(rot){
+			return [new Flow("cross", 0)];
+		}
+	},
 	mixer: {
 		src: function(rot){
 			return "mixer";
@@ -67,6 +75,11 @@ function Pipe(pos, t, rot){
 		//this.locked = true;
 	}
 
+	if(t == "cross")
+		this.cross = true;
+	else
+		this.cross = false;
+
 
 	this.update = function(){
 		if(this.mixer){
@@ -91,12 +104,15 @@ function Pipe(pos, t, rot){
 					//decidir se se poe antes ou depois da verificação do null
 					this.flows[i].ready = false;
 
-					var nb = this.neighbour(this.flows[i].exit)
-					if(nb == null || !nb.receive(this.pos, this.flows[i].liq)){
-						map.flowing--;
-						if(map.flowing == 0)
-							gameover();
-					}
+					var nb;
+					for(var j = 0; j < this.flows[i].exits.length; j++){
+						nb = this.neighbour(this.flows[i].exits[j]);
+						if(nb == null || !nb.receive(this.pos, this.flows[i].liq)){
+							map.flowing--;
+							if(map.flowing == 0)
+								gameover();
+						}
+					} 
 				}
 			}
 		}
@@ -110,6 +126,9 @@ function Pipe(pos, t, rot){
 		for(var i = 0; i < this.flows.length; i++){
 			if(this.flows[i].start(origin, liq)){
 				this.locked = true;
+
+				if(this.cross)
+					map.flowing += 2;
 
 				if(this.mixer && ((this.flows[0].reached && !this.flows[1].reached) || (!this.flows[0].reached && this.flows[1].reached)))
 					return false

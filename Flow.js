@@ -7,21 +7,27 @@ function Flow(type, rot){
 	this.ready = false;
 	this.container = new createjs.Container();
 
-	this.paths = crap[type].paths(rot);
+	this.exits = crap[type].paths(rot);
 
 	this.start = function(from, liq){
 		if(this.reached) return false;
 
-		if(this.paths[0] == from){
-			this.exit = this.paths[1];
-			this.loadSprite(liq, "normal");
+		var i
+		for(i = 0; i < this.exits.length; i++){
+			if(this.exits[i] == from)
+				break;
 		}
-		else if(this.paths[1] == from){
-			this.exit = this.paths[0];
-			this.loadSprite(liq, "reversed");
-		}
-		else
+
+		if(i == this.exits.length)
 			return false;
+
+		this.exits.splice(i, 1);
+
+
+		if(i == 0)
+			this.loadSprite(liq, "normal");
+		else if(i == 1)
+			this.loadSprite(liq, "reversed");
 
 		this.liq = liq;
 		this.reached = true;

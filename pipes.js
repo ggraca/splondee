@@ -25,6 +25,11 @@ var crap = {
 			}
 		}
 	},
+	cross: {
+		paths: function(rot){
+			return ["left", "right", "top", "down"];
+		}
+	},
 	mixer: {
 		paths: function(rot){
 			switch(rot){
