@@ -134,17 +134,17 @@ function Pipe(pos, t, rot){
 		return null;
 	}
 
-	this.stage.on("mouseover", function(){
+	this.container.on("mouseover", function(){
 		if(map.selectedPipe != this)
 			this.above.gotoAndPlay("hover");
 	}, this);
 
-	this.stage.on("mouseout", function(){
+	this.container.on("mouseout", function(){
 		if(map.selectedPipe != this)
 			this.above.gotoAndPlay("normal");
 	}, this);
 
-	this.stage.on("click", function(){
+	this.container.on("click", function(){
 		if(!this.locked)
 			map.input(this, null);
 	}, this);
@@ -164,23 +164,23 @@ Pipe.prototype.loadSprite = function(type){
 
 Pipe.prototype.setContainers = function(){
 	//create
-	this.stage = new createjs.Container();
-	this.stage.y = 50 * this.pos.y;
-	this.stage.x = 50 * this.pos.x;
+	this.container = new createjs.Container();
+	this.container.y = 50 * this.pos.y;
+	this.container.x = 50 * this.pos.x;
 
 	//add pipe sprite
-	this.stage.addChild(this.under);
+	this.container.addChild(this.under);
 	
 	//add flows sprites
 	for(var i = 0; i < this.flows.length; i++)
-		this.stage.addChild(this.flows[i].container);
+		this.container.addChild(this.flows[i].container);
 
-	this.stage.addChild(this.above);
+	this.container.addChild(this.above);
 
 	//set hitArea
 	var hit = new createjs.Shape();
 	hit.graphics.beginFill("#000").drawRect(0, 0, 50, 50);
-	this.stage.hitArea = hit;
+	this.container.hitArea = hit;
 
 	
 }

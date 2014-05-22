@@ -178,13 +178,13 @@ Map.prototype.setContainers = function(){
 	for(var i = 0; i < this.pipes.length; i++){
 		for(var j = 0; j < this.pipes[i].length; j++){
 			if(this.pipes[i][j] != null)
-				this.matrixStage.addChild(this.pipes[i][j].stage);
+				this.matrixStage.addChild(this.pipes[i][j].container);
 		}
 	}
 
 	for(var i = 0; i < this.cocktails.length; i++){
 		if(this.cocktails[i] != null)
-			this.cocktailStage.addChild(this.cocktails[i].sprite);
+			this.cocktailStage.addChild(this.cocktails[i].container);
 	}
 
 }
