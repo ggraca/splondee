@@ -87,13 +87,13 @@ function Map(){
 		this.pipes[b.pos.y][b.pos.x] = b;
 
 
-		var coord = {x: a.stage.x, y: a.stage.y};
+		var coord = {x: a.container.x, y: a.container.y};
 		
-		a.stage.x = b.stage.x;
-		a.stage.y = b.stage.y;
+		a.container.x = b.container.x;
+		a.container.y = b.container.y;
 
-		b.stage.x = coord.x;
-		b.stage.y = coord.y;
+		b.container.x = coord.x;
+		b.container.y = coord.y;
 	}
 
 	this.input = function(pipe, dir){
@@ -178,13 +178,13 @@ Map.prototype.setContainers = function(){
 	for(var i = 0; i < this.pipes.length; i++){
 		for(var j = 0; j < this.pipes[i].length; j++){
 			if(this.pipes[i][j] != null)
-				this.matrixStage.addChild(this.pipes[i][j].stage);
+				this.matrixStage.addChild(this.pipes[i][j].container);
 		}
 	}
 
 	for(var i = 0; i < this.cocktails.length; i++){
 		if(this.cocktails[i] != null)
-			this.cocktailStage.addChild(this.cocktails[i].sprite);
+			this.cocktailStage.addChild(this.cocktails[i].container);
 	}
 
 }
