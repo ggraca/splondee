@@ -6,6 +6,7 @@ function Map(levelIndex){
 	this.cocktails = [];
 	this.selectedPipe = null;
 	this.open = false;
+	this.delay = 24;
 
 	if(level[levelIndex] != null)
 		this.load(level[levelIndex]);
@@ -28,14 +29,17 @@ function Map(levelIndex){
 				this.selectedPipe = null;
 
 			if(this.open && this.flowing == 0){
-				this.pause = true;
-				for(var i = 0; i < this.cocktails.length; i++){
-					if(this.cocktails[i] != null && !this.cocktails[i].accepted){
-						gameover();
-						return;
+				this.delay--;
+				if(this.delay == 0){
+					this.pause = true;
+					for(var i = 0; i < this.cocktails.length; i++){
+						if(this.cocktails[i] != null && !this.cocktails[i].accepted){
+							gameover();
+							return;
+						}
 					}
+					success();
 				}
-				success();
 			}	
 		}
 	}
@@ -70,13 +74,16 @@ function Map(levelIndex){
 	this.input = function(pipe, dir){
 		if(this.selectedPipe == null){
 			this.selectedPipe = pipe;
-			pipe.above.gotoAndPlay("selected");
+			this.selectedSprite.visible = true;
+			this.selectedSprite.x = pipe.container.x;
+			this.selectedSprite.y = pipe.container.y;
 		}
 		else{
 			//if(relation(pipe.pos, this.selectedPipe.pos) != "unknown"){
 				this.swap(pipe, this.selectedPipe);
 				this.selectedPipe.above.gotoAndPlay("normal");
 				this.selectedPipe = null;
+				this.selectedSprite.visible = false;
 			//}
 		}
 	}
@@ -198,4 +205,12 @@ Map.prototype.setContainers = function(){
 		if(this.cocktails[i] != null)
 			this.cocktailStage.addChild(this.cocktails[i].container);
 	}
+
+	this.selectedSprite = new createjs.Bitmap("res/img/selected.png");
+	this.selectedSprite.visible = false;
+	this.matrixStage.addChild(this.selectedSprite);
+
+	this.hoverSprite = new createjs.Bitmap("res/img/hover.png");
+	this.hoverSprite.visible = false;
+	this.matrixStage.addChild(this.hoverSprite);
 }

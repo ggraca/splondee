@@ -93,12 +93,14 @@ function Pipe(pos, t, rot){
 Pipe.prototype.setInput = function(){
 	this.container.on("mouseover", function(){
 		if(map.selectedPipe != this)
-			this.above.gotoAndPlay("hover");
+			map.hoverSprite.visible = true;
+			map.hoverSprite.x = this.container.x;
+			map.hoverSprite.y = this.container.y;
 	}, this);
 
 	this.container.on("mouseout", function(){
 		if(map.selectedPipe != this)
-			this.above.gotoAndPlay("normal");
+			map.hoverSprite.visible = false;
 	}, this);
 
 	this.container.on("click", function(){
@@ -137,5 +139,5 @@ Pipe.prototype.setContainers = function(){
 	//set hitArea
 	var hit = new createjs.Shape();
 	hit.graphics.beginFill("#000").drawRect(0, 0, 50, 50);
-	this.container.hitArea = hit;	
+	this.container.hitArea = hit;
 }
