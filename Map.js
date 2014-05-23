@@ -24,6 +24,18 @@ function Map(level){
 		}
 		if(this.selectedPipe != null && this.selectedPipe.locked)
 			this.selectedPipe = null;
+
+		if(this.open && this.flowing == 0){
+			for(var i = 0; i < this.cocktails.length; i++){
+				if(this.cocktails[i] != null && !this.cocktails[i].accepted){
+					gameover();
+					return;
+				}
+			}
+
+			//win();
+
+		}
 	}
 
 	this.flow = function(){

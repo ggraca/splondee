@@ -46,11 +46,8 @@ function Pipe(pos, t, rot){
 					var nb;
 					for(var j = 0; j < this.flows[i].exits.length; j++){
 						nb = this.neighbour(this.flows[i].exits[j]);
-						if(nb == null || !nb.receive(this.pos, this.flows[i].liq)){
+						if(nb == null || !nb.receive(this.pos, this.flows[i].liq))
 							map.flowing--;
-							if(map.flowing == 0)
-								gameover();
-						}
 					} 
 				}
 			}
