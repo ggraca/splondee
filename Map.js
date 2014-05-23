@@ -5,6 +5,7 @@ function Map(levelIndex){
 	this.cocktails = [];
 	this.selectedPipe = null;
 	this.open = false;
+	this.paused = false;
 
 	if(level[levelIndex] != null)
 		this.load(level[levelIndex]);
@@ -13,28 +14,32 @@ function Map(levelIndex){
 	this.setContainers();
 
 	this.update = function(){
-		this.time--;
-		if(this.time <= 0)
-			this.flow();
+		if(!this.paused){
 
-		for(var i = 0; i < this.pipes.length; i++){
-			for(var j = 0; j < this.pipes[i].length; j++){
-				this.pipes[i][j].update();
-			}
-		}
-		if(this.selectedPipe != null && this.selectedPipe.locked)
-			this.selectedPipe = null;
+			this.time--;
+			if(this.time <= 0)
+				this.flow();
 
-		if(this.open && this.flowing == 0){
-			for(var i = 0; i < this.cocktails.length; i++){
-				if(this.cocktails[i] != null && !this.cocktails[i].accepted){
-					gameover();
-					return;
+			for(var i = 0; i < this.pipes.length; i++){
+				for(var j = 0; j < this.pipes[i].length; j++){
+					this.pipes[i][j].update();
 				}
 			}
+			if(this.selectedPipe != null && this.selectedPipe.locked)
+				this.selectedPipe = null;
 
-			//win();
+			if(this.open && this.flowing == 0){
+				this.paused = true;
+				for(var i = 0; i < this.cocktails.length; i++){
+					if(this.cocktails[i] != null && !this.cocktails[i].accepted){
+						gameover();
+						return;
+					}
+				}
 
+				//win();
+
+			}
 		}
 	}
 
