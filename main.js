@@ -29,6 +29,25 @@ function loadLevel(level){
 	stage.addChild(map.container);
 	stage.level = level;
 
+	var _spriteFill = new Image();
+	_spriteFill.src = "res/img/buttons/fill.png";
+	var dataFill = {
+	    images: [_spriteFill],
+	    frames: { width: 150, height: 150, count: 2},
+	    animations: { normal: [0], hover: [1]}
+	};
+	var spriteSheetFill = new createjs.SpriteSheet(dataFill);
+	var buttonSpriteFill = new createjs.Sprite(spriteSheetFill, "normal");
+	var helperButtonFill = new createjs.ButtonHelper(buttonSpriteFill, "normal", "hover");
+
+	buttonSpriteFill.x = 660;
+	buttonSpriteFill.y = 350;
+
+	buttonSpriteFill.on("mousedown", function(){
+		map.flow();
+	});
+
+	stage.addChild(buttonSpriteFill);
 	loadMenu();
 }
 
