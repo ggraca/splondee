@@ -58,5 +58,3 @@ level[8] = {
 // 	],
 // 	receiver: ["hybrid", "hybrid", "splondee", null, "hybrid", null, "splondee", null, null, "splondee", null]
 // };
-
-
