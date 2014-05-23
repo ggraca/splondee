@@ -39,17 +39,18 @@ Receiver.prototype.setContainers = function(){
 	hit.graphics.beginFill("#000").drawRect(0, 0, 50, 100);
 	this.container.hitArea = hit;
 
-	// this.hover = new createjs.Bitmap("res/img/receivers/hover.png");
-	// this.hover.visible = false;
+	this.hover = new createjs.Bitmap("res/img/receivers/" + this.liq + "hover.png");
+	this.hover.visible = false;
+	this.hover.y = -this.hover.getBounds().height + 25;
 
-	// this.container.addChild(this.hover);
 	this.container.addChild(this.sprite);
+	this.container.addChild(this.hover);
 
-	// this.container.on("mouseover", function(){
-	// 	this.hover.visible = true;
-	// }, this);
+	this.container.on("mouseover", function(){
+		this.hover.visible = true;
+	}, this);
 
-	// this.container.on("mouseout", function(){
-	// 	this.hover.visible = false;
-	// }, this);
+	this.container.on("mouseout", function(){
+		this.hover.visible = false;
+	}, this);
 }

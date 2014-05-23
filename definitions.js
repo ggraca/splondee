@@ -112,7 +112,7 @@ var drinks = {
 		anim: "beer",
 		glass: {
 			src: "beer",
-			frames: 18
+			frames: 18,
 		},
 		join: function(a){
 			switch(a){

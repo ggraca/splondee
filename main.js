@@ -13,7 +13,7 @@ function init(){
 	//createjs.Sound.play(srcMusic, "none", 0, 0, -1, 0.3, 0);
  	//mainMenu();
 
-	loadLevel(level9);
+	loadLevel(level7);
 }
 
 function update(){
