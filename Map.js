@@ -1,6 +1,6 @@
 function Map(levelIndex){
 	this.pause = false;
-	this.time = 25*60*3;
+	this.time = 24*level[levelIndex].time;
 	this.pipes = [];
 	this.drinks = [];
 	this.cocktails = [];
