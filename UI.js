@@ -209,7 +209,7 @@ function loadMenu(){
 			var dataTimer = {
 		    images: [_spriteTimer],
 		    frames: { width: 200, height: 35, count: 24},
-		    animations: { anim: [0, 24, "anim", 1/180]}
+		    animations: { anim: [0, 23, "empty", 1/(map.time/24)], empty: [24]}
 			};	
 
 			var spriteSheetTimer = new createjs.SpriteSheet(dataTimer);
