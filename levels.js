@@ -12,18 +12,6 @@ level[0] = {
 };
 
 level[1] = {
-	drinks: [null, "beer", null, "wine", null],
-	pipes: [
-		[["rect", 0], ["rect", 0], ["segundo", 1], ["rect", 0], ["curve", 1], ["rect", 0], ["curve", 0], ["rect", 0], ["bridge", 0], ["rect", 0], ["rect", 1]],
-		[["rect", 0], ["curve", 1], ["rect", 0], ["rect", 0], ["curve", 3], ["rect", 0], ["rect", 0], ["rect", 1], ["segundo", 1], ["rect", 0], ["bridge", 0]],
-		[["bridge", 0], ["rect", 0], ["curve", 2], ["curve", 1], ["rect", 0], ["curve", 1], ["rect", 1], ["curve", 0], ["rect", 0], ["rect", 1], ["rect", 0]],
-		[["rect", 1], ["rect", 0], ["curve", 1], ["rect", 0], ["curve", 1], ["rect", 0], ["rect", 0], ["segundo", 1], ["rect", 0], ["rect", 0], ["segundo", 1]],
-		[["rect", 0], ["curve", 1], ["curve", 0], ["segundo", 1], ["rect", 0], ["bridge", 0], ["segundo", 1], ["curve", 2], ["curve", 1], ["rect", 0], ["rect", 0]]
-	],
-	receiver: [null, "wine", null, null, null, null, null, null, null, "beer", null]
-};
-
-level[2] = {
 	drinks: [null, "wine", null, null, null],
 	pipes: [
 		[["curve", 2], ["curve", 1], ["curve", 2], ["curve", 2], ["curve", 0], ["rect", 0], ["rect", 0], ["curve", 1], ["segundo", 0], ["curve", 0], ["curve", 2]],
@@ -34,6 +22,71 @@ level[2] = {
 	], 
 	receiver: ["wine", null, null, "wine", null, null, null, "wine", null, null, null]
 };
+
+level[2] = {
+	drinks: ["beer", null, "tequila", null, null],
+	pipes: [
+		[["curve", 0], ["cross", 0], ["curve", 0], ["curve", 0], ["curve", 3], ["segundo", 0], ["rect", 0], ["curve", 1], ["curve", 3], ["curve", 1], ["curve", 0]],
+		[["curve", 3], ["rect", 0], ["segundo", 0], ["curve", 0], ["segundo", 0], ["segundo", 1], ["curve", 3], ["curve", 2], ["bridge", 0], ["curve", 1], ["curve", 2]],
+		[["curve", 1], ["segundo", 1], ["curve", 0], ["curve", 3], ["curve", 3], ["curve", 2], ["rect", 0], ["curve", 2], ["curve", 0], ["curve", 1], ["segundo", 1]],
+		[["segundo", 0], ["curve", 0], ["curve", 1], ["curve", 2], ["segundo", 0], ["curve", 0], ["segundo", 1], ["segundo", 0], ["segundo", 1], ["segundo", 0], ["curve", 2]],
+		[["curve", 0], ["rect", 1], ["segundo", 0], ["curve", 1], ["curve", 3], ["segundo", 0], ["segundo", 1], ["curve", 3], ["curve", 0], ["curve", 3], ["curve", 2]]
+	],
+	receiver: [null, "beer", null, null, null, "beer", null, "tequila", null, "beer", null]
+};
+
+// level[2] = {
+// 	drinks: ["beer", null, "tequila", null, null],
+// 	pipes: [
+// 		[["curve", 2], ["segundo", 0], ["curve", 3], ["curve", 2], ["curve", 3], ["rect", 1], ["curve", 2], ["curve", 3], ["curve", 3], ["rect", 0], ["segundo", 1]],
+// 		[["curve", 1], ["segundo", 0], ["segundo", 0], ["curve", 0], ["curve", 1], ["segundo", 1], ["segundo", 0], ["bridge", 0], ["segundo", 1], ["curve", 0], ["curve", 1]],
+// 		[["curve", 2], ["curve", 1], ["curve", 0], ["curve", 1], ["curve", 2], ["cross", 0], ["curve", 0], ["curve", 1], ["segundo", 1], ["curve", 3], ["curve", 0]],
+// 		[["curve", 3], ["curve", 0], ["segundo", 0], ["rect", 0], ["segundo", 0], ["curve", 0], ["segundo", 0], ["rect", 0], ["segundo", 0], ["segundo", 0], ["curve", 0]],
+// 		[["curve", 0], ["curve", 2], ["curve", 0], ["curve", 2], ["segundo", 1], ["curve", 3], ["segundo", 1], ["curve", 3], ["curve", 1], ["curve", 3], ["curve", 0]]
+// 	],
+// 	receiver: [null, "beer", null, null, null, "beer", null, "tequila", null, "beer", null]
+// };
+
+
+
+level[3] = {
+	drinks: [null, "beer", null, "wine", null],
+	pipes: [
+		[["rect", 0], ["rect", 0], ["segundo", 1], ["rect", 0], ["curve", 1], ["rect", 0], ["curve", 0], ["rect", 0], ["bridge", 0], ["rect", 0], ["rect", 1]],
+		[["rect", 0], ["curve", 1], ["rect", 0], ["rect", 0], ["curve", 3], ["rect", 0], ["rect", 0], ["rect", 1], ["segundo", 1], ["rect", 0], ["bridge", 0]],
+		[["bridge", 0], ["rect", 0], ["mixer", 0], ["curve", 1], ["rect", 0], ["curve", 1], ["rect", 1], ["curve", 0], ["rect", 0], ["rect", 1], ["rect", 0]],
+		[["rect", 1], ["rect", 0], ["curve", 1], ["rect", 0], ["curve", 1], ["rect", 0], ["rect", 0], ["segundo", 1], ["rect", 0], ["rect", 0], ["segundo", 1]],
+		[["rect", 0], ["curve", 1], ["curve", 0], ["segundo", 1], ["rect", 0], ["bridge", 0], ["segundo", 1], ["curve", 2], ["curve", 1], ["rect", 0], ["rect", 0]]
+	],
+	receiver: [null, "wine", null, null, null, null, null, null, null, "beer", null]
+};
+
+
+level[4] = {
+	drinks: ["wine", null, "soda", null, null],
+	pipes: [
+		[["segundo", 1], ["rect", 0], ["curve", 1], ["rect", 0], ["rect", 1], ["bridge", 0], ["segundo", 0], ["curve", 3], ["rect", 0], ["curve", 3], ["curve", 2]],
+		[["cross", 0], ["curve", 2], ["mixer", 0], ["rect", 1], ["curve", 3], ["curve", 0], ["bridge", 0], ["segundo", 0], ["bridge", 0], ["curve", 3], ["rect", 0]],
+		[["curve", 2], ["rect", 1], ["curve", 0], ["segundo", 0], ["curve", 0], ["segundo", 1], ["rect", 1], ["curve", 1], ["curve", 1], ["cross", 0], ["rect", 0]],
+		[["curve", 3], ["curve", 3], ["curve", 2], ["rect", 0], ["rect", 0], ["curve", 3], ["rect", 1], ["curve", 0], ["curve", 0], ["curve", 0], ["curve", 3]],
+		[["curve", 1], ["curve", 2], ["rect", 0], ["rect", 0], ["curve", 3], ["rect", 0], ["rect", 0], ["rect", 0], ["rect", 0], ["curve", 1], ["rect", 0]]
+	],
+	receiver: ["hybrid", null, null, "wine", "hybrid", null, null, "hybrid", null, null, null]
+};
+
+
+// level[4] = {
+// 	drinks: ["wine", null, "soda", null, null],
+// 	pipes: [
+// 		[["curve", 0], ["cross", 0], ["rect", 0], ["rect", 0], ["curve", 3], ["rect", 1], ["curve", 1], ["curve", 2], ["curve", 3], ["curve", 2], ["curve", 0]],
+// 		[["curve", 3], ["segundo", 1], ["mixer", 0], ["rect", 0], ["bridge", 0], ["segundo", 0], ["rect", 0], ["rect", 0], ["rect", 0], ["curve", 0], ["curve", 3]],
+// 		[["curve", 2], ["rect", 0], ["cross", 0], ["rect", 0], ["bridge", 0], ["rect", 0], ["curve", 3], ["segundo", 1], ["rect", 0], ["segundo", 0], ["rect", 0]],
+// 		[["rect", 1], ["rect", 0], ["rect", 1], ["curve", 2], ["segundo", 0], ["rect", 0], ["curve", 1], ["curve", 3], ["rect", 0], ["rect", 0], ["curve", 1]],
+// 		[["rect", 1], ["curve", 3], ["curve", 1], ["bridge", 0], ["curve", 3], ["curve", 0], ["curve", 3], ["rect", 1], ["curve", 2], ["curve", 0], ["curve", 0]]
+// 	],
+// 	receiver: ["hybrid", null, null, "wine", "hybrid", null, null, "hybrid", null, null, null]
+// };
+
 
 level[5] = {
 	drinks: ["tequila", null, "beer", null, null],
@@ -47,6 +100,7 @@ level[5] = {
 	receiver: ["beer", null, null, null, "desperados", null, "tequila", "desperados", null, null, "desperados"]
 };
 
+
 // level[5] = {
 // 	drinks: ["tequila", null, "beer", null, null],
 // 	pipes: [
@@ -58,6 +112,33 @@ level[5] = {
 // 	],
 // 	receiver: ["beer", null, null, null, "desperados", null, "tequila", "desperados", null, null, "desperados"]
 // };
+
+
+level[6] = {
+	drinks: ["beer", "tequila", null, "wine", "soda"],
+    pipes: [
+		[["curve", 3], ["curve", 3], ["curve", 2], ["curve", 1], ["curve", 0], ["cross", 0], ["curve", 2], ["curve", 0], ["cross", 0], ["curve", 3], ["cross", 0]],
+		[["rect", 0], ["rect", 1], ["mixer", 0], ["rect", 1], ["rect", 0], ["rect", 0], ["curve", 1], ["bridge", 0], ["mixer", 0], ["bridge", 0], ["curve", 0]],
+		[["bridge", 0], ["rect", 1], ["rect", 1], ["rect", 1], ["curve", 2], ["rect", 0], ["rect", 0], ["bridge", 0], ["cross", 0], ["rect", 1], ["curve", 0]],
+		[["curve", 1], ["curve", 1], ["rect", 1], ["rect", 0], ["curve", 3], ["segundo", 0], ["rect", 0], ["rect", 0], ["curve", 2], ["rect", 0], ["rect", 0]],
+		[["segundo", 1], ["rect", 1], ["rect", 0], ["curve", 2], ["curve", 0], ["rect", 1], ["rect", 1], ["rect", 1], ["rect", 1], ["bridge", 0], ["rect", 1]]
+	],
+	receiver: ["hybrid", "hybrid", null, null, null, "desperados", "desperados", null, "desperados", null, null]
+};
+
+// level[6] = {
+// 	drinks: ["beer", "tequila", null, "wine", "soda"],
+//     pipes: [
+// 		[["curve", 3], ["rect", 1], ["rect", 0], ["rect", 1], ["curve", 1], ["segundo", 1], ["rect", 0], ["rect", 1], ["curve", 3], ["rect", 1], ["segundo", 0]],
+// 		[["rect", 1], ["curve", 1], ["mixer", 0], ["curve", 0], ["rect", 0], ["curve", 2], ["curve", 0], ["curve", 1], ["mixer", 0], ["curve", 0], ["cross", 0]],
+// 		[["curve", 2], ["cross", 0], ["bridge", 0], ["rect", 0], ["bridge", 0], ["cross", 0], ["rect", 0], ["bridge", 0], ["curve", 0], ["rect", 1], ["bridge", 0]],
+// 		[["rect", 1], ["rect", 1], ["rect", 1], ["curve", 0], ["curve", 2], ["curve", 2], ["rect", 0], ["rect", 0], ["curve", 3], ["rect", 0], ["curve", 2]],
+// 		[["rect", 1], ["rect", 1], ["curve", 1], ["rect", 0], ["rect", 0], ["cross", 0], ["curve", 3], ["bridge", 0], ["rect", 1], ["rect", 1], ["rect", 0]]
+// 	],
+// 	receiver: ["hybrid", "hybrid", null, null, null, "desperados", "desperados", null, "desperados", null, null]
+// };
+
+
 
 level[7] = {
 	drinks: ["soda", "tequila", null, null, "liquor"],
