@@ -1,4 +1,4 @@
-var stage, map;
+var stage, map, editor;
 init();
 
 function init(){
@@ -13,28 +13,20 @@ function init(){
 	createjs.Sound.play(srcMusic, "none", 0, 0, -1, 0.5, 0);
  	//mainMenu();
 
-	loadLevel();
+	loadLevel(level9);
 }
 
 function update(){
-	if(map != null){
+	if(map != null)
 		map.update();
-	}
 	stage.update();
 }
 
-
-function loadLevel(){
+function loadLevel(level){
 	stage.removeAllChildren();
 
-	var background = new createjs.Bitmap("res/img/backgrounds/gameplay.png");
-	stage.addChild(background);
-
-	map = new Map();
-
-	stage.addChild(map.matrixStage);
-	stage.addChild(map.drinkStage);
-	stage.addChild(map.cocktailStage);
+	map = new Map(level);
+	stage.addChild(map.container);
 
 	loadMenu();
 }

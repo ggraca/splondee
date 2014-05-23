@@ -1,71 +1,23 @@
-var pipes = {
-	rect: {
-		src: function(rot){
-			switch(rot){
-				case 1:
-				case 3:
-					return "rect1";
-
-				default:
-					return "rect0";
-			}
-		},
-		flows: function(rot){
-			return [new Flow("rect", rot)];
-		}
-	},
-	curve: {
-		src: function(rot){
-			return "curve" + rot;
-		},
-		flows: function(rot){
-			return [new Flow("curve", rot)];
-		}
-	},
-	segundo: {
-		src: function(rot){
-			if(rot == 0 || rot == 2)
-				return "segundo" + 0;
-			return "segundo" + 1;
-		},
-		flows: function(rot){
-			if(rot % 2 == 0)
-				return [new Flow("curve", 0), new Flow("curve", 2)];
-			return [new Flow("curve", 1), new Flow("curve", 3)];
-		}
-	},
-	bridge: {
-		src: function(rot){
-			return "bridge";
-		},
-		flows: function(rot){
-			return [new Flow("rect", 0), new Flow("rect", 1)];
-		}
-	},
-	mixer: {
-		src: function(rot){
-			return "mixer";
-		},
-		flows: function(rot){
-			return [new Flow("mixer", 0), new Flow("mixer", 1), new Flow("mixer", 2)];
-		}
-	}
-};
-
 function Pipe(pos, t, rot){
 	this.pos = pos;
-
 	this.flows = pipes[t].flows(rot);
-	this.loadSprite(pipes[t].src(rot));
-	this.setContainers();
-
 	this.locked = false;
+	
 	this.mixer = false;
-
 	if(t == "mixer"){
 		this.mixer = true;
-		//this.locked = true;
+		this.locked = true;
 	}
+
+	this.cross = false;
+	if(t == "cross")
+		this.cross = true;
+	
+	this.loadSprite(pipes[t].src(rot));
+	this.setContainers();
+	this.setInput();
+
+		
 
 
 	this.update = function(){
@@ -91,12 +43,15 @@ function Pipe(pos, t, rot){
 					//decidir se se poe antes ou depois da verificação do null
 					this.flows[i].ready = false;
 
-					var nb = this.neighbour(this.flows[i].exit)
-					if(nb == null || !nb.receive(this.pos, this.flows[i].liq)){
-						map.flowing--;
-						if(map.flowing == 0)
-							gameover();
-					}
+					var nb;
+					for(var j = 0; j < this.flows[i].exits.length; j++){
+						nb = this.neighbour(this.flows[i].exits[j]);
+						if(nb == null || !nb.receive(this.pos, this.flows[i].liq)){
+							map.flowing--;
+							if(map.flowing == 0)
+								gameover();
+						}
+					} 
 				}
 			}
 		}
@@ -110,6 +65,9 @@ function Pipe(pos, t, rot){
 		for(var i = 0; i < this.flows.length; i++){
 			if(this.flows[i].start(origin, liq)){
 				this.locked = true;
+
+				if(this.cross)
+					map.flowing += 2;
 
 				if(this.mixer && ((this.flows[0].reached && !this.flows[1].reached) || (!this.flows[0].reached && this.flows[1].reached)))
 					return false
@@ -132,8 +90,10 @@ function Pipe(pos, t, rot){
 			return map.pipes[newPos.y][newPos.x];
 
 		return null;
-	}
+	}	
+}
 
+Pipe.prototype.setInput = function(){
 	this.container.on("mouseover", function(){
 		if(map.selectedPipe != this)
 			this.above.gotoAndPlay("hover");
@@ -180,7 +140,5 @@ Pipe.prototype.setContainers = function(){
 	//set hitArea
 	var hit = new createjs.Shape();
 	hit.graphics.beginFill("#000").drawRect(0, 0, 50, 50);
-	this.container.hitArea = hit;
-
-	
+	this.container.hitArea = hit;	
 }

@@ -1,59 +1,16 @@
-var level1 = {
-	drinks: [null, null, "wine", null, "beer"],
-	pipes: [
-		[["rect", 1], ["curve", 1], ["rect", 1], ["curve", 1], ["rect", 1], ["curve", 1], ["rect", 1], ["curve", 1], ["rect", 1], ["curve", 1], ["curve", 1]],
-		[["rect", 1], ["curve", 1], ["rect", 1], ["curve", 1], ["rect", 1], ["curve", 1], ["rect", 1], ["curve", 1], ["rect", 1], ["curve", 1], ["curve", 1]],
-		[["rect", 1], ["curve", 1], ["rect", 1], ["curve", 1], ["rect", 1], ["curve", 1], ["rect", 1], ["curve", 1], ["rect", 1], ["curve", 1], ["curve", 1]],
-		[["rect", 1], ["curve", 1], ["rect", 1], ["curve", 1], ["rect", 1], ["curve", 1], ["rect", 1], ["curve", 1], ["rect", 1], ["curve", 1], ["curve", 1]],
-		[["rect", 1], ["curve", 1], ["rect", 1], ["curve", 1], ["rect", 1], ["curve", 1], ["rect", 1], ["curve", 1], ["rect", 1], ["curve", 0], ["curve", 1]]
-	],
-	receiver: [null, null, null, "beer", null, null, null, null, null, null, null]
-}
-
-function Map(){
-	this.time = 25*60;
+function Map(level){
+	this.time = 25*60*100;
 	this.pipes = [];
 	this.drinks = [];
 	this.cocktails = [];
 	this.selectedPipe = null;
 	this.open = false;
 
-	this.generate();
+	if(level != null)
+		this.load(level);
+	else
+		this.generate();
 	this.setContainers();
-
-	this.load = function(){
-		for(var i = 0; i < 5; i++){
-			
-			if(level1.drinks[i] == null)
-				continue;
-
-			var drink = new Drink(i, level1.drinks[i]);
-			this.drinkStage.addChild(drink.sprite);
-			this.drinks.push(drink);
-		}
-
-		for(var i = 0; i < 5; i++){
-			var line = [];
-			for(var j = 0; j < 11; j++){
-
-				var pipe = new Pipe({x: j, y: i}, level1.pipes[i][j][0], level1.pipes[i][j][1]);
-				this.matrixStage.addChild(pipe.stage);
-				line.push(pipe);
-			}
-			this.pipes.push(line);
-		}
-
-		for(var i = 0; i < 11; i++){
-			if(level1.receiver[i] == null){
-				this.cocktails.push(null);
-				continue;
-			}
-
-			var cocktail = new Receiver(i, level1.receiver[i]);
-			this.cocktailStage.addChild(cocktail.sprite);
-			this.cocktails.push(cocktail);
-		}
-	}
 
 	this.update = function(){
 		this.time--;
@@ -138,7 +95,7 @@ Map.prototype.generate = function(){
 			if(rand < 3) s = "rect";
 			else if(rand < 6) s = "curve";
 			else if(rand < 8) s = "segundo";
-			else if(rand < 10) s = "bridge";
+			else if(rand < 10) s = "cross";
 			else s = "mixer";
 
 			var pipe = new Pipe({x: j, y: i}, s, rot);
@@ -157,18 +114,59 @@ Map.prototype.generate = function(){
 	}
 }
 
+Map.prototype.load = function(level){
+		for(var i = 0; i < 5; i++){
+			
+			if(level.drinks[i] == null)
+				continue;
+
+			var drink = new Drink(i, level.drinks[i]);
+			this.drinks.push(drink);
+		}
+
+		for(var i = 0; i < 5; i++){
+			var line = [];
+			for(var j = 0; j < 11; j++){
+
+				var pipe = new Pipe({x: j, y: i}, level.pipes[i][j][0], level.pipes[i][j][1]);
+				line.push(pipe);
+			}
+			this.pipes.push(line);
+		}
+
+		for(var i = 0; i < 11; i++){
+			if(level.receiver[i] == null){
+				this.cocktails.push(null);
+				continue;
+			}
+
+			var cocktail = new Receiver(i, level.receiver[i]);
+			this.cocktails.push(cocktail);
+		}
+}
+
 Map.prototype.setContainers = function(){
-	this.matrixStage = new createjs.Container();	
+	this.container = new createjs.Container();
+	
+	this.background = new createjs.Bitmap("res/img/backgrounds/gameplay.png");
+	this.container.addChild(this.background);
+
+	this.matrixStage = new createjs.Container();
+	this.container.addChild(this.matrixStage);
 	this.matrixStage.x = 125;
 	this.matrixStage.y = 150;
 
 	this.drinkStage = new createjs.Container();
+	this.container.addChild(this.drinkStage);
 	this.drinkStage.x = 150;
 	this.drinkStage.y = 25;
 
 	this.cocktailStage = new createjs.Container();
+	this.container.addChild(this.cocktailStage);
 	this.cocktailStage.x = 125;
 	this.cocktailStage.y = 400;
+
+
 
 	for(var i = 0; i < this.drinks.length; i++){
 		if(this.drinks[i] != null)
@@ -186,5 +184,4 @@ Map.prototype.setContainers = function(){
 		if(this.cocktails[i] != null)
 			this.cocktailStage.addChild(this.cocktails[i].container);
 	}
-
 }
