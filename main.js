@@ -1,4 +1,6 @@
 var stage, map, editor;
+var srcMusic = "res/sound/music.mp3";
+var srcEffect = "res/sound/soundEffect.mp3";
 init();
 
 function init(){
@@ -7,10 +9,10 @@ function init(){
 	createjs.Ticker.addEventListener("tick", update);
 	createjs.Ticker.setFPS(24);
 
-	var srcMusic = "res/sound/music.mp3";
 	createjs.Sound.registerSound(srcMusic);
+	createjs.Sound.registerSound(srcEffect);
 
-	createjs.Sound.play(srcMusic, "none", 0, 0, -1, 0.5, 0);
+	createjs.Sound.play(srcMusic, "none", 0, 0, -1, 0.2, 0);
  	mainMenu();
 	//loadLevel(0);
 }
@@ -54,6 +56,7 @@ function loadLevel(level){
 
 	buttonSpriteFill.on("mousedown", function(){
 		map.flow();
+		createjs.Sound.play(srcEffect, "none", 0, 0, 0, 1, 0);
 	});
 
 	stage.addChild(buttonSpriteFill);
