@@ -5,7 +5,7 @@ function init(){
 	stage = new createjs.Stage("myCanvas");
 	stage.enableMouseOver();
 	createjs.Ticker.addEventListener("tick", update);
-	createjs.Ticker.setFPS(30);
+	createjs.Ticker.setFPS(24);
 
 	var srcMusic = "res/sound/music.mp3";
 	createjs.Sound.registerSound(srcMusic);

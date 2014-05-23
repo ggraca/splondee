@@ -35,6 +35,18 @@ level[2] = {
 	receiver: ["wine", null, null, "wine", null, null, null, "wine", null, null, null]
 };
 
+level[5] = {
+	drinks: ["tequila", null, "beer", null, null],
+	pipes: [
+		[["rect", 0], ["curve", 1], ["rect", 0], ["curve", 3], ["rect", 1], ["curve", 1], ["rect", 0], ["cross", 0], ["rect", 0], ["rect", 0], ["curve", 3]],
+		[["rect", 0], ["cross", 0], ["bridge", 0], ["curve", 1], ["cross", 0], ["rect", 0], ["rect", 0], ["bridge", 0], ["rect", 0], ["mixer", 0], ["curve", 0]],
+		[["curve", 2], ["rect", 0], ["rect", 0], ["rect", 0], ["bridge", 0], ["rect", 0], ["rect", 0], ["curve", 0], ["curve", 2], ["curve", 0], ["curve", 2]],
+		[["rect", 1], ["curve", 0], ["bridge", 0], ["rect", 0], ["curve", 1], ["rect", 0], ["segundo", 1], ["segundo", 0], ["cross", 0], ["rect", 0], ["curve", 3]],
+		[["rect", 1], ["rect", 0], ["segundo", 0], ["rect", 0], ["curve", 2], ["rect", 0], ["bridge", 0], ["segundo", 0], ["curve", 0], ["rect", 0], ["rect", 1]]
+	],
+	receiver: ["beer", null, null, null, "desperados", null, "tequila", "desperados", null, null, "desperados"]
+};
+
 level[8] = {
 	drinks: ["liquor", "wine", null, "soda", "tequila"],
 	pipes: [
