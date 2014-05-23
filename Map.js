@@ -1,4 +1,4 @@
-function Map(level){
+function Map(levelIndex){
 	this.time = 25*60*100;
 	this.pipes = [];
 	this.drinks = [];
@@ -6,8 +6,8 @@ function Map(level){
 	this.selectedPipe = null;
 	this.open = false;
 
-	if(level != null)
-		this.load(level);
+	if(level[levelIndex] != null)
+		this.load(level[levelIndex]);
 	else
 		this.generate();
 	this.setContainers();

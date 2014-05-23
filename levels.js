@@ -1,4 +1,5 @@
-var level1 = {
+var level = new Array();
+level[0] = {
 	drinks: [null, null, "beer", null, null],
 	pipes: [
 		[["curve", 2], ["rect", 0], ["curve", 2], ["rect", 1], ["curve", 0], ["rect", 0], ["curve", 0], ["rect", 0], ["curve", 3], ["curve", 0], ["curve", 2]],
@@ -10,7 +11,7 @@ var level1 = {
 	receiver: [null, null, null, "beer", null, null, null, null, null, null, null]
 };
 
-var level2 = {
+level[1] = {
 	drinks: [null, "beer", null, "wine", null],
 	pipes: [
 		[["rect", 0], ["rect", 0], ["segundo", 1], ["rect", 0], ["curve", 1], ["rect", 0], ["curve", 0], ["rect", 0], ["bridge", 0], ["rect", 0], ["rect", 1]],
@@ -22,7 +23,7 @@ var level2 = {
 	receiver: [null, "wine", null, null, null, null, null, null, null, "beer", null]
 };
 
-var level3 = {
+level[2] = {
 	drinks: [null, "wine", null, null, null],
 	pipes: [
 		[["curve", 2], ["curve", 1], ["curve", 2], ["curve", 2], ["curve", 0], ["rect", 0], ["rect", 0], ["curve", 1], ["segundo", 0], ["curve", 0], ["curve", 2]],
@@ -34,7 +35,7 @@ var level3 = {
 	receiver: ["wine", null, null, "wine", null, null, null, "wine", null, null, null]
 };
 
-var level9 = {
+level[8] = {
 	drinks: ["liquor", "wine", null, "soda", "tequila"],
 	pipes: [
 		[["rect", 0], ["rect", 1], ["curve", 2], ["curve", 2], ["curve", 3], ["mixer", 0], ["cross", 0], ["rect", 0], ["rect", 1], ["rect", 0], ["segundo", 1]],
