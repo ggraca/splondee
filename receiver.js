@@ -39,12 +39,12 @@ Receiver.prototype.setContainers = function(){
 
 	this.hover = new createjs.Bitmap("res/img/receivers/" + this.liq + "hover.png");
 	this.hover.visible = false;
-	this.hover.y = -this.hover.getBounds().height + 25;
 
 	this.container.addChild(this.sprite);
 	this.container.addChild(this.hover);
 
 	this.container.on("mouseover", function(){
+		this.hover.y = -this.hover.getBounds().height + 25;
 		this.hover.visible = true;
 	}, this);
 
