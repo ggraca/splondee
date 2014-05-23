@@ -28,7 +28,35 @@ function loadLevel(level){
 	map = new Map(level);
 	stage.addChild(map.container);
 	stage.level = level;
+	if(level==0)
+	{
+		var tips = new createjs.Bitmap("res/img/backgrounds/tips.png");
+		stage.addChild(tips);
 
+		tips.on("mousedown", function(evt){
+			stage.removeChild(tips);
+		});
+	}
+
+	var _spriteFill = new Image();
+	_spriteFill.src = "res/img/buttons/fill.png";
+	var dataFill = {
+	    images: [_spriteFill],
+	    frames: { width: 150, height: 150, count: 2},
+	    animations: { normal: [0], hover: [1]}
+	};
+	var spriteSheetFill = new createjs.SpriteSheet(dataFill);
+	var buttonSpriteFill = new createjs.Sprite(spriteSheetFill, "normal");
+	var helperButtonFill = new createjs.ButtonHelper(buttonSpriteFill, "normal", "hover");
+
+	buttonSpriteFill.x = 660;
+	buttonSpriteFill.y = 350;
+
+	buttonSpriteFill.on("mousedown", function(){
+		map.flow();
+	});
+
+	stage.addChild(buttonSpriteFill);
 	loadMenu();
 }
 
@@ -73,7 +101,7 @@ function success(){
 	var spriteSheet = new createjs.SpriteSheet(data);
 	var buttonContinue = new createjs.Sprite(spriteSheet, "normal");
 	var helper = new createjs.ButtonHelper(buttonContinue, "normal", "hover");
-	buttonContinue.x=690;
+	buttonContinue.x=600;
 	buttonContinue.y=410;
 
 	stage.addChild(dialog);

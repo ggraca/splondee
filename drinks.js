@@ -12,8 +12,4 @@ function Drink(pos, type){
 		if(!this.under().receive({x: 1 + pos * 2, y: -1}, type))
 			map.flowing--;
 	}
-
-	this.sprite.on("pressup", function(){
-		map.flow();
-	});
 }
