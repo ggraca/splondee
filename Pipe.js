@@ -126,7 +126,7 @@ Pipe.prototype.setContainers = function(){
 	this.container = new createjs.Container();
 	this.container.y = 50 * this.pos.y;
 	this.container.x = 50 * this.pos.x;
-
+	
 	//add pipe sprite
 	this.container.addChild(this.under);
 	

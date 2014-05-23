@@ -59,6 +59,30 @@ level[5] = {
 // 	receiver: ["beer", null, null, null, "desperados", null, "tequila", "desperados", null, null, "desperados"]
 // };
 
+level[7] = {
+	drinks: ["soda", "tequila", null, null, "liquor"],
+    pipes: [
+		[["curve", 3], ["segundo", 0], ["rect", 0], ["rect", 0], ["curve", 1], ["segundo", 1], ["rect", 0], ["rect", 1], ["curve", 3], ["curve", 3], ["segundo", 0]],
+		[["rect", 1], ["curve", 2], ["segundo", 0], ["curve", 1], ["rect", 0], ["curve", 2], ["curve", 0], ["bridge", 0], ["rect", 1], ["rect", 0], ["cross", 0]],
+		[["rect", 0], ["rect", 0], ["rect", 0], ["curve", 3], ["bridge", 0], ["mixer", 0], ["rect", 1], ["mixer", 0], ["curve", 1], ["curve", 0], ["bridge", 0]],
+		[["rect", 0], ["rect", 1], ["rect", 1], ["segundo", 0], ["rect", 1], ["curve", 1], ["bridge", 0], ["rect", 0], ["curve", 1], ["rect", 0], ["curve", 2]],
+		[["segundo", 1], ["curve", 0], ["cross", 0], ["bridge", 0], ["cross", 0], ["curve", 2], ["rect", 1], ["bridge", 0], ["curve", 0], ["rect", 1], ["rect", 0]]
+	],
+	receiver: ["tequila", "splondee", "tequila", "tequila", null, "tequila", null, null, null, "splondee", "splondee"]
+};
+
+// level[7] = {
+// 	drinks: ["soda", "tequila", null, null, "liquor"],
+//     pipes: [
+// 		[["curve", 1], ["rect", 1], ["segundo", 0], ["cross", 0], ["rect", 0], ["rect", 0], ["curve", 3], ["rect", 0], ["segundo", 1], ["rect", 1], ["rect", 0]],
+// 		[["rect", 0], ["curve", 1], ["bridge", 0], ["bridge", 0], ["curve", 3], ["segundo", 0], ["rect", 1], ["rect", 0], ["curve", 2], ["curve", 0], ["curve", 1]],
+// 		[["curve", 2], ["curve", 0], ["rect", 1], ["rect", 1], ["curve", 1], ["mixer", 0], ["segundo", 0], ["mixer", 0], ["segundo", 0], ["rect", 0], ["curve", 3]],
+// 		[["curve", 2], ["rect", 0], ["bridge", 0], ["cross", 0], ["rect", 0], ["segundo", 1], ["curve", 0], ["curve", 1], ["cross", 0], ["curve", 3], ["rect", 1]],
+// 		[["rect", 1], ["curve", 2], ["bridge", 0], ["bridge", 0], ["rect", 0], ["bridge", 0], ["rect", 0], ["rect", 0], ["curve", 0], ["rect", 1], ["rect", 1]]
+// 	],
+// 	receiver: ["tequila", "splondee", "tequila", "tequila", null, "tequila", null, null, null, "splondee", "splondee"]
+// };
+
 level[8] = {
 	drinks: ["liquor", "wine", null, "soda", "tequila"],
 	pipes: [
@@ -71,7 +95,7 @@ level[8] = {
 	receiver: ["hybrid", "hybrid", "splondee", null, "hybrid", null, "splondee", null, null, "splondee", null]
 };
 
-// var level9 = {
+// 	level[9] = {
 // 	drinks: ["liquor", "wine", null, "soda", "tequila"],
 // 	pipes: [
 // 		[["rect", 0], ["curve", 1], ["rect", 0], ["bridge", 0], ["rect", 0], ["mixer", 0], ["rect", 0], ["cross", 0], ["rect", 0], ["rect", 1], ["rect", 0]],
