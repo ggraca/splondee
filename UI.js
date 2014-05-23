@@ -80,27 +80,21 @@ function levelMenu(){
 
 			var spriteSheet = new createjs.SpriteSheet(data);
 			buttonLevelSprite[level] = new createjs.Sprite(spriteSheet, "normal");
-			if(level==0) // LEVEL IS AVAILABLE
-			{
-				buttonLevelHelper[level] = new createjs.ButtonHelper(buttonLevelSprite[level], "normal", "hover");
-			}
-			else
-			{
-				buttonLevelHelper[level] = new createjs.ButtonHelper(buttonLevelSprite[level], "blocked");
-				buttonLevelSprite[level].mouseEnabled = false;
-			}
+			buttonLevelHelper[level] = new createjs.ButtonHelper(buttonLevelSprite[level], "normal", "hover");
 
 			buttonLevelSprite[level].x = b * 200 + offsetX;
 			buttonLevelSprite[level].y = a * 150 + offsetY;
+
+			buttonLevelSprite[level].level = level;
+
+			buttonLevelSprite[level].on("mousedown", function(evt){
+				loadLevel(this.level);
+			});
 
 			stage.addChild(buttonLevelSprite[level]);
 			level++;
 		}
 	}
-
-	buttonLevelSprite[0].on("mousedown", function(evt){
-		loadLevel();
-	});
 
 	stage.update();
 }
@@ -118,26 +112,26 @@ function loadMenu(){
 
 	var dataInstructions = {
 	    images: [_spriteInstructions],
-	    frames: { width: 75, height: 75, count: 2},
-	    animations: { normal: [1], hover: [0] }
+	    frames: { width: 50, height: 50, count: 2},
+	    animations: { normal: [0], hover: [1] }
 	};
 
 	var dataBack = {
 	    images: [_spriteBack],
-	    frames: { width: 75, height: 75, count: 2},
-	    animations: { normal: [1], hover: [0] }
+	    frames: { width: 50, height: 50, count: 2},
+	    animations: { normal: [0], hover: [1] }
 	};
 
 	var dataHome = {
 	    images: [_spriteHome],
-	    frames: { width: 75, height: 75, count: 2},
-	    animations: { normal: [1], hover: [0] }
+	    frames: { width: 50, height: 50, count: 2},
+	    animations: { normal: [0], hover: [1] }
 	};
 
 	var dataSound = {
 	    images: [_spriteSound],
-	    frames: { width: 75, height: 75, count: 2},
-	    animations: { normal: [1], hover: [0] }
+	    frames: { width: 50, height: 50, count: 4},
+	    animations: { normalOFF: [0], hoverOFF: [1], normalON: [2], hoverON:[3] }
 	};
 
 
@@ -157,19 +151,36 @@ function loadMenu(){
 
 	var helperInstructions = new createjs.ButtonHelper(buttonSpriteInstructions, "normal", "hover");
 	buttonSpriteInstructions.x = 200;
-	buttonSpriteInstructions.y = 525;
+	buttonSpriteInstructions.y = 535;
 
 	var helperBack = new createjs.ButtonHelper(buttonSpriteBack, "normal", "hover");
 	buttonSpriteBack.x = 300;
-	buttonSpriteBack.y = 525;
+	buttonSpriteBack.y = 535;
 
 	var helperHome = new createjs.ButtonHelper(buttonSpriteHome, "normal", "hover");
 	buttonSpriteHome.x = 400;
-	buttonSpriteHome.y = 525;
+	buttonSpriteHome.y = 535;
 
-	var helperSound = new createjs.ButtonHelper(buttonSpriteSound, "normal", "hover");
+	var helperSound = new createjs.ButtonHelper(buttonSpriteSound, "normalOFF", "hoverOFF");
 	buttonSpriteSound.x = 500;
-	buttonSpriteSound.y = 525;
+	buttonSpriteSound.y = 535;
+
+
+	var toogleSound = true;
+	buttonSpriteSound.on("mousedown", function(evt){
+		if(toogleSound){
+			helperSound.outLabel = "normalON";
+			helperSound.overLabel = "hoverON";
+			createjs.Sound.setVolume(0);
+			toogleSound = false;
+		}
+		else{
+			helperSound.outLabel = "normalOFF";
+			helperSound.overLabel = "hoverOFF";
+			createjs.Sound.setVolume(0.5);
+			toogleSound = true;
+		}
+	});
 
 	stage.addChild(buttonSpriteInstructions);
 	stage.addChild(buttonSpriteBack);

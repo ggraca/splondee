@@ -7,13 +7,13 @@ function init(){
 	createjs.Ticker.addEventListener("tick", update);
 	createjs.Ticker.setFPS(30);
 
-	//var srcMusic = "res/sound/music.mp3";
-	//createjs.Sound.registerSound(srcMusic);
+	var srcMusic = "res/sound/music.mp3";
+	createjs.Sound.registerSound(srcMusic);
 
-	//createjs.Sound.play(srcMusic, "none", 0, 0, -1, 0.3, 0);
+	createjs.Sound.play(srcMusic, "none", 0, 0, -1, 0.5, 0);
  	//mainMenu();
 
-	loadLevel(level7);
+	loadLevel(0);
 }
 
 function update(){
