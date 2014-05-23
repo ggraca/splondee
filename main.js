@@ -11,9 +11,9 @@ function init(){
 	createjs.Sound.registerSound(srcMusic);
 
 	createjs.Sound.play(srcMusic, "none", 0, 0, -1, 0.5, 0);
- 	//mainMenu();
-
-	loadLevel(0);
+ 	mainMenu();
+	loadMenu();
+	//loadLevel(0);
 }
 
 function update(){
@@ -27,6 +27,7 @@ function loadLevel(level){
 
 	map = new Map(level);
 	stage.addChild(map.container);
+	stage.level = level;
 
 	loadMenu();
 }
@@ -54,5 +55,31 @@ function gameover(){
 
 	buttonContinue.on("mousedown", function(evt){
 		levelMenu();
+	});
+}
+
+function success(){
+	var dialog = new createjs.Bitmap("res/img/backgrounds/success.png");
+
+	var _spriteSlider = new Image();
+	_spriteSlider.src = "res/img/buttons/continue.png";
+
+	var data = {
+	    images: [_spriteSlider],
+	    frames: { width: 48, height: 97, count: 2},
+	    animations: { normal: [1], hover: [0] }
+	};
+
+	var spriteSheet = new createjs.SpriteSheet(data);
+	var buttonContinue = new createjs.Sprite(spriteSheet, "normal");
+	var helper = new createjs.ButtonHelper(buttonContinue, "normal", "hover");
+	buttonContinue.x=690;
+	buttonContinue.y=460;
+
+	stage.addChild(dialog);
+	stage.addChild(buttonContinue);
+
+	buttonContinue.on("mousedown", function(evt){
+		loadLevel(stage.level+1);
 	});
 }

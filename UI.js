@@ -17,14 +17,14 @@ function mainMenu(){
 
 	var data = {
 	    images: [_spriteSlider],
-	    frames: { width: 153, height: 209, count: 3},
-	    animations: { normal: [0], hover: [1], down: [2] }
+	    frames: { width: 153, height: 209, count: 2},
+	    animations: { normal: [0], hover: [1] }
 	};
 
 	var spriteSheet = new createjs.SpriteSheet(data);
 	var slider = new createjs.Sprite(spriteSheet, "normal");
 	var x_origin;
-	var helper = new createjs.ButtonHelper(slider, "normal", "hover", "down");
+	var helper = new createjs.ButtonHelper(slider, "normal", "hover");
 
 	slider.x = 70;
 	slider.y = 300;
@@ -96,18 +96,17 @@ function levelMenu(){
 		}
 	}
 
+	loadMenu();
 	stage.update();
 }
 
 function loadMenu(){
 	var _spriteInstructions = new Image();
 	var _spriteBack = new Image();
-	var _spriteHome = new Image();
 	var _spriteSound = new Image();
 
 	_spriteInstructions.src = "res/img/buttons/instructions.png";
 	_spriteBack.src = "res/img/buttons/back.png";
-	_spriteHome.src = "res/img/buttons/home.png";
 	_spriteSound.src = "res/img/buttons/sound.png";
 
 	var dataInstructions = {
@@ -118,12 +117,6 @@ function loadMenu(){
 
 	var dataBack = {
 	    images: [_spriteBack],
-	    frames: { width: 50, height: 50, count: 2},
-	    animations: { normal: [0], hover: [1] }
-	};
-
-	var dataHome = {
-	    images: [_spriteHome],
 	    frames: { width: 50, height: 50, count: 2},
 	    animations: { normal: [0], hover: [1] }
 	};
@@ -141,28 +134,19 @@ function loadMenu(){
 	var spriteSheetBack = new createjs.SpriteSheet(dataBack);
 	var buttonSpriteBack = new createjs.Sprite(spriteSheetBack, "normal");
 
-
-	var spriteSheetHome = new createjs.SpriteSheet(dataHome);
-	var buttonSpriteHome = new createjs.Sprite(spriteSheetHome, "normal");
-
-
 	var spriteSheetSound = new createjs.SpriteSheet(dataSound);
 	var buttonSpriteSound = new createjs.Sprite(spriteSheetSound, "normal");
 
 	var helperInstructions = new createjs.ButtonHelper(buttonSpriteInstructions, "normal", "hover");
-	buttonSpriteInstructions.x = 200;
+	buttonSpriteInstructions.x = 690;
 	buttonSpriteInstructions.y = 535;
 
 	var helperBack = new createjs.ButtonHelper(buttonSpriteBack, "normal", "hover");
-	buttonSpriteBack.x = 300;
+	buttonSpriteBack.x = 10;
 	buttonSpriteBack.y = 535;
 
-	var helperHome = new createjs.ButtonHelper(buttonSpriteHome, "normal", "hover");
-	buttonSpriteHome.x = 400;
-	buttonSpriteHome.y = 535;
-
 	var helperSound = new createjs.ButtonHelper(buttonSpriteSound, "normalOFF", "hoverOFF");
-	buttonSpriteSound.x = 500;
+	buttonSpriteSound.x = 740;
 	buttonSpriteSound.y = 535;
 
 
@@ -182,8 +166,11 @@ function loadMenu(){
 		}
 	});
 
+	buttonSpriteBack.on("mousedown", function(evt){
+		levelMenu();
+	});
+
 	stage.addChild(buttonSpriteInstructions);
 	stage.addChild(buttonSpriteBack);
-	stage.addChild(buttonSpriteHome);
 	stage.addChild(buttonSpriteSound);
 }

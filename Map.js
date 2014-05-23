@@ -25,6 +25,7 @@ function Map(levelIndex){
 					this.pipes[i][j].update();
 				}
 			}
+
 			if(this.selectedPipe != null && this.selectedPipe.locked)
 				this.selectedPipe = null;
 
@@ -37,7 +38,7 @@ function Map(levelIndex){
 					}
 				}
 
-				//win();
+				success();
 
 			}
 		}
