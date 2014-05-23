@@ -104,10 +104,12 @@ function loadMenu(){
 	var _spriteInstructions = new Image();
 	var _spriteBack = new Image();
 	var _spriteSound = new Image();
+	var _spriteTimer = new Image();
 
 	_spriteInstructions.src = "res/img/buttons/instructions.png";
 	_spriteBack.src = "res/img/buttons/back.png";
 	_spriteSound.src = "res/img/buttons/sound.png";
+	_spriteTimer.src = "res/img/timer.png";
 
 	var dataInstructions = {
 	    images: [_spriteInstructions],
@@ -127,6 +129,11 @@ function loadMenu(){
 	    animations: { normalOFF: [0], hoverOFF: [1], normalON: [2], hoverON:[3] }
 	};
 
+	var dataTimer = {
+	    images: [_spriteTimer],
+	    frames: { width: 200, height: 35, count: 24},
+	    animations: { anim: [0, 24, "anim", 1/180]}
+	};	
 
 	var spriteSheetInstructions = new createjs.SpriteSheet(dataInstructions);
 	var buttonSpriteInstructions = new createjs.Sprite(spriteSheetInstructions, "normal");
@@ -136,6 +143,11 @@ function loadMenu(){
 
 	var spriteSheetSound = new createjs.SpriteSheet(dataSound);
 	var buttonSpriteSound = new createjs.Sprite(spriteSheetSound, "normal");
+
+	var spriteSheetTimer = new createjs.SpriteSheet(dataTimer);
+	var spriteTimer = new createjs.Sprite(spriteSheetTimer, "anim");
+	spriteTimer.x = 290;
+	spriteTimer.y = 545;
 
 	var helperInstructions = new createjs.ButtonHelper(buttonSpriteInstructions, "normal", "hover");
 	buttonSpriteInstructions.x = 690;
@@ -173,4 +185,5 @@ function loadMenu(){
 	stage.addChild(buttonSpriteInstructions);
 	stage.addChild(buttonSpriteBack);
 	stage.addChild(buttonSpriteSound);
+	stage.addChild(spriteTimer);
 }
