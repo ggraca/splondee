@@ -32,9 +32,7 @@ function Map(levelIndex){
 					return;
 				}
 			}
-
-			//win();
-
+			success();
 		}
 	}
 
