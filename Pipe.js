@@ -6,7 +6,7 @@ function Pipe(pos, t, rot){
 	this.mixer = false;
 	if(t == "mixer"){
 		this.mixer = true;
-		//this.locked = true;
+		this.locked = true;
 	}
 
 	this.cross = false;

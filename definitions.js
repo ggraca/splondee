@@ -27,7 +27,7 @@ var flows = {
 	},
 	cross: {
 		paths: function(rot){
-			return ["left", "right", "top", "down"];
+			return ["top", "right", "down", "left"];
 		}
 	},
 	mixer: {
@@ -127,7 +127,7 @@ var drinks = {
 	},
 	soda: {
 		bottle: "soda",
-		anim: "tequila_soda",
+		anim: "soda",
 		glass: null,
 		join: function(a){
 			switch(a){
@@ -139,6 +139,8 @@ var drinks = {
 					return "liquor_soda";
 				case "tequila":
 					return "tequila_soda";
+				case "liquor_tequila":
+					return "splondee";
 				default:
 					return "nothing";
 			}
@@ -156,6 +158,8 @@ var drinks = {
 					return "liquor_soda";
 				case "tequila":
 					return "liquor_tequila";
+				case "tequila_soda":
+					return "splondee";
 				default:
 					return "nothing";
 			}
@@ -163,7 +167,7 @@ var drinks = {
 	},
 	tequila: {
 		bottle: "tequila",
-		anim: "tequila_soda",
+		anim: "tequila",
 		glass: {
 			src: "shot",
 			frames: 9
@@ -178,6 +182,8 @@ var drinks = {
 					return "tequila_soda";
 				case "liquor":
 					return "liquor_tequila";
+				case "liquor_soda":
+					return "splondee";
 				default:
 					return "nothing";
 			}
@@ -265,7 +271,7 @@ var drinks = {
 	},
 	tequila_soda: {
 		bottle: null,
-		anim: "tequila_soda",
+		anim: "soda",
 		glass: null,
 		join: function(a){
 			switch(a){
@@ -280,7 +286,7 @@ var drinks = {
 	},
 	splondee: {
 		bottle: null,
-		anim: "liquor",
+		anim: "splondee",
 		glass: {
 			src: "splondee",
 			frames: 18
@@ -296,7 +302,7 @@ var drinks = {
 	},
 	nothing: {
 		bottle: null,
-		anim: "wine",
+		anim: "nothing",
 		glass: null,
 		join: function(a){
 			return "nothing";
