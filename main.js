@@ -12,7 +12,6 @@ function init(){
 
 	createjs.Sound.play(srcMusic, "none", 0, 0, -1, 0.5, 0);
  	mainMenu();
-	loadMenu();
 	//loadLevel(0);
 }
 
@@ -23,6 +22,7 @@ function update(){
 }
 
 function loadLevel(level){
+	stage.scene = "gameplay";
 	stage.removeAllChildren();
 
 	map = new Map(level);

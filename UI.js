@@ -1,5 +1,5 @@
 function mainMenu(){
-	
+	stage.scene = "mainMenu";
 
 	/* BACKGROUND */
 	var background = new createjs.Bitmap("res/img/backgrounds/mainMenu.png");
@@ -49,10 +49,13 @@ function mainMenu(){
 	stage.addChild(background);
 	stage.addChild(lettering);
 	stage.addChild(slider);
+
+	loadMenu();
 	stage.update();
 }
 
 function levelMenu(){
+	stage.scene = "levelMenu";
 	stage.removeAllChildren();
 
 	/* BACKGROUND */
@@ -100,67 +103,33 @@ function levelMenu(){
 	stage.update();
 }
 
+function instructions(){
+	stage.scene = "instructions";
+	stage.removeAllChildren();
+
+	/* BACKGROUND */
+	var background = new createjs.Bitmap("res/img/backgrounds/instructions.png");
+	stage.addChild(background);
+
+	loadMenu();
+	stage.update();
+}
+
 function loadMenu(){
-	var _spriteInstructions = new Image();
-	var _spriteBack = new Image();
+
 	var _spriteSound = new Image();
-	var _spriteTimer = new Image();
-
-	_spriteInstructions.src = "res/img/buttons/instructions.png";
-	_spriteBack.src = "res/img/buttons/back.png";
 	_spriteSound.src = "res/img/buttons/sound.png";
-	_spriteTimer.src = "res/img/timer.png";
-
-	var dataInstructions = {
-	    images: [_spriteInstructions],
-	    frames: { width: 50, height: 50, count: 2},
-	    animations: { normal: [0], hover: [1] }
-	};
-
-	var dataBack = {
-	    images: [_spriteBack],
-	    frames: { width: 50, height: 50, count: 2},
-	    animations: { normal: [0], hover: [1] }
-	};
-
 	var dataSound = {
 	    images: [_spriteSound],
 	    frames: { width: 50, height: 50, count: 4},
 	    animations: { normalOFF: [0], hoverOFF: [1], normalON: [2], hoverON:[3] }
 	};
-
-	var dataTimer = {
-	    images: [_spriteTimer],
-	    frames: { width: 200, height: 35, count: 24},
-	    animations: { anim: [0, 24, "anim", 1/180]}
-	};	
-
-	var spriteSheetInstructions = new createjs.SpriteSheet(dataInstructions);
-	var buttonSpriteInstructions = new createjs.Sprite(spriteSheetInstructions, "normal");
-
-	var spriteSheetBack = new createjs.SpriteSheet(dataBack);
-	var buttonSpriteBack = new createjs.Sprite(spriteSheetBack, "normal");
-
 	var spriteSheetSound = new createjs.SpriteSheet(dataSound);
 	var buttonSpriteSound = new createjs.Sprite(spriteSheetSound, "normal");
-
-	var spriteSheetTimer = new createjs.SpriteSheet(dataTimer);
-	var spriteTimer = new createjs.Sprite(spriteSheetTimer, "anim");
-	spriteTimer.x = 290;
-	spriteTimer.y = 545;
-
-	var helperInstructions = new createjs.ButtonHelper(buttonSpriteInstructions, "normal", "hover");
-	buttonSpriteInstructions.x = 690;
-	buttonSpriteInstructions.y = 535;
-
-	var helperBack = new createjs.ButtonHelper(buttonSpriteBack, "normal", "hover");
-	buttonSpriteBack.x = 10;
-	buttonSpriteBack.y = 535;
 
 	var helperSound = new createjs.ButtonHelper(buttonSpriteSound, "normalOFF", "hoverOFF");
 	buttonSpriteSound.x = 740;
 	buttonSpriteSound.y = 535;
-
 
 	var toogleSound = true;
 	buttonSpriteSound.on("mousedown", function(evt){
@@ -178,12 +147,81 @@ function loadMenu(){
 		}
 	});
 
-	buttonSpriteBack.on("mousedown", function(evt){
-		levelMenu();
-	});
-
-	stage.addChild(buttonSpriteInstructions);
-	stage.addChild(buttonSpriteBack);
 	stage.addChild(buttonSpriteSound);
-	stage.addChild(spriteTimer);
+
+	/*********************/
+
+	if(stage.scene=="mainMenu"){
+		var _spriteInstructions = new Image();
+		_spriteInstructions.src = "res/img/buttons/instructions.png";
+		var dataInstructions = {
+		    images: [_spriteInstructions],
+		    frames: { width: 50, height: 50, count: 2},
+		    animations: { normal: [0], hover: [1] }
+		};		
+
+		var spriteSheetInstructions = new createjs.SpriteSheet(dataInstructions);
+		var buttonSpriteInstructions = new createjs.Sprite(spriteSheetInstructions, "normal");
+
+		var helperInstructions = new createjs.ButtonHelper(buttonSpriteInstructions, "normal", "hover");
+		buttonSpriteInstructions.x = 690;
+		buttonSpriteInstructions.y = 535;
+
+		buttonSpriteInstructions.on("mousedown", function(evt){
+			instructions();
+		});
+
+		stage.addChild(buttonSpriteInstructions);
+	}
+	else{
+		var _spriteBack = new Image();
+		_spriteBack.src = "res/img/buttons/back.png";
+		var dataBack = {
+		    images: [_spriteBack],
+		    frames: { width: 50, height: 50, count: 2},
+		    animations: { normal: [0], hover: [1] }
+		};
+
+		var spriteSheetBack = new createjs.SpriteSheet(dataBack);
+		var buttonSpriteBack = new createjs.Sprite(spriteSheetBack, "normal");
+		
+		var helperBack = new createjs.ButtonHelper(buttonSpriteBack, "normal", "hover");
+		buttonSpriteBack.x = 10;
+		buttonSpriteBack.y = 535;
+
+		stage.addChild(buttonSpriteBack);
+
+		if(stage.scene=="levelMenu"){
+			buttonSpriteBack.on("mousedown", function(evt){
+				mainMenu();
+			});
+		}
+		else if(stage.scene=="instructions"){
+			buttonSpriteBack.on("mousedown", function(evt){
+				mainMenu();
+			});
+		}
+		else if(stage.scene=="gameplay"){
+			var _spriteTimer = new Image();
+
+			_spriteTimer.src = "res/img/timer.png";
+
+			var dataTimer = {
+		    images: [_spriteTimer],
+		    frames: { width: 200, height: 35, count: 24},
+		    animations: { anim: [0, 24, "anim", 1/180]}
+			};	
+
+			var spriteSheetTimer = new createjs.SpriteSheet(dataTimer);
+			var spriteTimer = new createjs.Sprite(spriteSheetTimer, "anim");
+			spriteTimer.x = 290;
+			spriteTimer.y = 545;
+			stage.addChild(spriteTimer);
+
+			buttonSpriteBack.on("mousedown", function(evt){
+				levelMenu();
+			});
+		}
+	}
+	
 }
